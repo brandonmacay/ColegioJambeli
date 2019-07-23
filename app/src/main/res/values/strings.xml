@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Colegio Jambeli</string>
+    <string name="docente">Docente</string>
+    <string name="iniciar_en_modo">Iniciar en modo:</string>
+    <string name="estudiante">Estudiante</string>
+    <string name="todo">TODO</string>
+    <string name="listo">Listo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="seleccione_su_curso">Seleccione su curso:</string>
 </resources>

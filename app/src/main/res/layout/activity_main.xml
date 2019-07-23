@@ -1,55 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FDFDFE"
     tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Docente"
-        android:background="@color/rojo"
-        android:textColor="@android:color/white"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="341dp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Estudiante"
-        android:textColor="@android:color/white"
-        android:background="@color/verde"
-        tools:layout_editor_absoluteX="267dp"
-        tools:layout_editor_absoluteY="340dp" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:text="Admin"
-        android:background="@color/azul"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="435dp" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
         app:srcCompat="@drawable/ic_cbj"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="45dp" />
-
+        android:contentDescription="@string/todo" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:gravity="center"
+        android:textColor="@color/rojo"
+        android:textSize="25sp"
+        android:padding="25dp"
+        android:textAlignment="inherit"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        />
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:padding="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Iniciar en modo:"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="261dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textSize="20sp"
+        android:text="@string/iniciar_en_modo" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+    <Button
+        android:id="@+id/btn_docente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/docente"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:background="@color/rojo"
+        android:textColor="@android:color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"/>
+    <Button
+        android:id="@+id/btn_estudiante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:text="@string/estudiante"
+        android:textColor="@android:color/white"
+        android:background="@color/verde" />
+
+</LinearLayout>
