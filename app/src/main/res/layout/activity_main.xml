@@ -1,65 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FDFDFE"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp" />
+
+
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:srcCompat="@drawable/ic_cbj"
-        android:contentDescription="@string/todo" />
+        android:src="@drawable/ic_cbj"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
+        android:padding="25dp"
+        android:text="@string/app_name"
+        android:textAlignment="inherit"
         android:textColor="@color/rojo"
         android:textSize="25sp"
-        android:padding="25dp"
-        android:textAlignment="inherit"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-condensed"
-        />
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/textView"
-        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/iniciar_en_modo" />
+        android:padding="20dp"
+        android:text="@string/iniciar_en_modo"
+        android:textSize="20sp" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="20dp" />
+
     <Button
         android:id="@+id/btn_docente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/docente"
-        android:textStyle="bold"
         android:layout_gravity="center"
         android:background="@color/rojo"
-        android:textColor="@android:color/white" />
+        android:text="@string/docente"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="25dp"/>
+        android:layout_height="25dp" />
+
     <Button
         android:id="@+id/btn_estudiante"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textStyle="bold"
+        android:background="@color/verde"
         android:text="@string/estudiante"
         android:textColor="@android:color/white"
-        android:background="@color/verde" />
+        android:textStyle="bold" />
 
 </LinearLayout>

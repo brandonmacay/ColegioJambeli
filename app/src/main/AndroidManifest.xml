@@ -16,7 +16,7 @@
             android:theme="@style/EstudianteStyle" />
         <activity android:name=".Estudiante.EstudianteActivity"
             android:theme="@style/EstudianteStyle"/>
-        <activity android:name=".Docente.DocenteActivity" />
+        <activity android:name=".Docente.DocenteActivity" android:theme="@style/DocenteStyle"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

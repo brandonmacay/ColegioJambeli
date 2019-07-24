@@ -11,11 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.vluver.cbj.colegio.R;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class EstudianteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Toolbar toolbar;
@@ -32,21 +29,21 @@ public class EstudianteActivity extends AppCompatActivity implements AdapterView
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(EstudianteActivity.this);
-        ArrayList categories=new ArrayList();
-        categories.add("1");
-        categories.add("2");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        categories.add("1");
-        ArrayAdapter dataAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,categories);
+        ArrayList<String> categories=new ArrayList<String>();
+        categories.add("1 A ACUACULTURA");
+        categories.add("1 B ACUACULTURA");
+        categories.add("1 A INFORMATICA");
+        categories.add("1 B INFORMATICA");
+        categories.add("1 C INFORMATICA");
+        categories.add("1 D INFORMATICA");
+        categories.add("1 A ELECTRICIDAD");
+        categories.add("1 B ELECTRICIDAD");
+        categories.add("1 C ELECTRICIDAD");
+        categories.add("2 A ACUACULTURA");
+        categories.add("2 B ACUACULTURA");
+        categories.add("2 A INFORMATICA");
+        categories.add("2 B INFORMATICA");
+        ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,categories);
         dataAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
         spinner.setAdapter(dataAdapter);
 
@@ -66,7 +63,7 @@ public class EstudianteActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String item = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(adapterView.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        Toast.makeText(adapterView.getContext(), "Seleccionado:\t " + item, Toast.LENGTH_LONG).show();
 
     }
 
