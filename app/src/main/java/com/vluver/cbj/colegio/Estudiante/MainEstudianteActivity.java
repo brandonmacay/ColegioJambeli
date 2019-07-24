@@ -1,13 +1,13 @@
 package com.vluver.cbj.colegio.Estudiante;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayout;
 import com.vluver.cbj.colegio.Estudiante.fragments.DocentesFragment;
@@ -29,7 +29,7 @@ public class MainEstudianteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_estudiante);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Estudiantes de "+curso);
-        //setSupportActionBar(toolbar);
+            //setSupportActionBar(toolbar);
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

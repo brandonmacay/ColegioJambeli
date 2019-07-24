@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.vluver.cbj.colegio">
 
     <application
@@ -8,9 +9,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Estudiante.MainEstudianteActivity"></activity>
-        <activity android:name=".Estudiante.EstudianteActivity" />
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".Estudiante.MainEstudianteActivity"
+            android:theme="@style/EstudianteStyle" />
+        <activity android:name=".Estudiante.EstudianteActivity"
+            android:theme="@style/EstudianteStyle"/>
         <activity android:name=".Docente.DocenteActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
