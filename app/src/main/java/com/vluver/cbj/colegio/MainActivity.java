@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Session session = new Session(this);
-        if (session.isLoggedInStudent()) {
+        EstadoSesion estadoSesion = new EstadoSesion(this);
+        if (estadoSesion.isLoggedInStudent()) {
 
             Intent intent = new Intent(MainActivity.this, EstudianteActivity.class);
             //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        }else if (session.isLoggedInTeacher()){
+        }else if (estadoSesion.isLoggedInTeacher()){
             Intent intent = new Intent(MainActivity.this,DocenteActivity.class);
             startActivity(intent);
             finish();

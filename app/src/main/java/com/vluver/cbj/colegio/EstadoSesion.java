@@ -3,8 +3,8 @@ package com.vluver.cbj.colegio;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Session {
-    private static final String TAG = Session.class.getSimpleName();
+public class EstadoSesion {
+    private static final String TAG = EstadoSesion.class.getSimpleName();
 
     SharedPreferences sPref;
     SharedPreferences.Editor editor;
@@ -20,7 +20,7 @@ public class Session {
     private static final String KEY_IS_LOGGED_IN_TEACHER = "isLoggedInTeacher";
 
     //declaracion de uso de sesion
-    public Session(Context context){
+    public EstadoSesion(Context context){
         this._context = context;
         sPref  = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = sPref.edit();
