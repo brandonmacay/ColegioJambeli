@@ -12,9 +12,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Estudiante.MainEstudianteActivity"
+            android:name=".Estudiante.EstudianteActivity"
             android:theme="@style/EstudianteStyle" />
-        <activity android:name=".Estudiante.EstudianteActivity"
+        <activity android:name=".Estudiante.SeleccionCursoActivity"
             android:theme="@style/EstudianteStyle"/>
         <activity android:name=".Docente.DocenteActivity" android:theme="@style/DocenteStyle"/>
         <activity android:name=".MainActivity">

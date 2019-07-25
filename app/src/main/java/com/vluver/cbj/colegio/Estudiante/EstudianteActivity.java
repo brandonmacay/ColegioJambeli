@@ -2,73 +2,74 @@ package com.vluver.cbj.colegio.Estudiante;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
+
+import com.google.android.material.tabs.TabLayout;
+import com.vluver.cbj.colegio.Estudiante.fragments.DocentesFragment;
+import com.vluver.cbj.colegio.Estudiante.fragments.HorarioFrag;
 import com.vluver.cbj.colegio.R;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class EstudianteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    Toolbar toolbar;
-    Button listo;
+public class EstudianteActivity extends AppCompatActivity {
 
+    private String curso= null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_estudiante);
-        toolbar =  findViewById(R.id.toolbar);
-        toolbar.setTitle("Estudiante");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_main_estudiante);
+        Intent intent = this.getIntent();
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setOnItemSelectedListener(EstudianteActivity.this);
-        ArrayList<String> categories=new ArrayList<String>();
-        categories.add("1 A ACUACULTURA");
-        categories.add("1 B ACUACULTURA");
-        categories.add("1 A INFORMATICA");
-        categories.add("1 B INFORMATICA");
-        categories.add("1 C INFORMATICA");
-        categories.add("1 D INFORMATICA");
-        categories.add("1 A ELECTRICIDAD");
-        categories.add("1 B ELECTRICIDAD");
-        categories.add("1 C ELECTRICIDAD");
-        categories.add("2 A ACUACULTURA");
-        categories.add("2 B ACUACULTURA");
-        categories.add("2 A INFORMATICA");
-        categories.add("2 B INFORMATICA");
-        ArrayAdapter<String> dataAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,categories);
-        dataAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
-        spinner.setAdapter(dataAdapter);
+        curso = intent.getStringExtra("curso_estudiante");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Estudiantes de "+curso);
 
-        listo = findViewById(R.id.btn_listo);
-        listo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EstudianteActivity.this,MainEstudianteActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new HorarioFrag(), "Horario");
+        adapter.addFragment(new DocentesFragment(), "Docentes");
+        viewPager.setAdapter(adapter);
     }
 
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String item = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(adapterView.getContext(), "Seleccionado:\t " + item, Toast.LENGTH_LONG).show();
+        ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
 
-    }
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
 
+        void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }

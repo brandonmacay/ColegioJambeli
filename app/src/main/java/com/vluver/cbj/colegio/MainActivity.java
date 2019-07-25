@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.vluver.cbj.colegio.Docente.DocenteActivity;
 import com.vluver.cbj.colegio.Estudiante.EstudianteActivity;
+import com.vluver.cbj.colegio.Estudiante.SeleccionCursoActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +18,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Session session = new Session(this);
+        if (session.isLoggedInStudent()) {
+
+            Intent intent = new Intent(MainActivity.this, EstudianteActivity.class);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }else if (session.isLoggedInTeacher()){
+            Intent intent = new Intent(MainActivity.this,DocenteActivity.class);
+            startActivity(intent);
+            finish();
+        }
         docente = findViewById(R.id.btn_docente);
         estudiante = findViewById(R.id.btn_estudiante);
         docente.setOnClickListener(new View.OnClickListener() {
@@ -28,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         estudiante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, EstudianteActivity.class));
+                startActivity(new Intent(MainActivity.this, SeleccionCursoActivity.class));
             }
         });
     }

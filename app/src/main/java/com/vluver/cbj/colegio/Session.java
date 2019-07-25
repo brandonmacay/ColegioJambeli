@@ -16,7 +16,8 @@ public class Session {
     // nombre del archivo shared
     private static final String PREF_NAME = "userlogin";
 
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_IS_LOGGED_IN_Student = "isLoggedInStudent";
+    private static final String KEY_IS_LOGGED_IN_TEACHER = "isLoggedInTeacher";
 
     //declaracion de uso de sesion
     public Session(Context context){
@@ -26,12 +27,20 @@ public class Session {
     }
 
     //como marcador: se utiliza cuando el usuario ha iniciado sesión
-    public void setLogin(boolean isLoggedIn){
-        editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
+    public void setLoginStudent(boolean isLoggedIn){
+        editor.putBoolean(KEY_IS_LOGGED_IN_Student, isLoggedIn);
         editor.commit();
     }
 
-    public boolean isLoggedIn(){
-        return sPref.getBoolean(KEY_IS_LOGGED_IN, false);
+    public void setLoginTeacher(boolean isLoggedIn){
+        editor.putBoolean(KEY_IS_LOGGED_IN_TEACHER, isLoggedIn);
+        editor.commit();
+    }
+
+    public boolean isLoggedInStudent(){
+        return sPref.getBoolean(KEY_IS_LOGGED_IN_Student, false);
+    }
+    public boolean isLoggedInTeacher(){
+        return sPref.getBoolean(KEY_IS_LOGGED_IN_TEACHER, false);
     }
 }
