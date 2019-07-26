@@ -11,9 +11,9 @@
     <string name="seleccione_su_curso">Seleccione su curso:</string>
     <string name="horario">HORARIO</string>
     <string name="docentes">DOCENTES</string>
-    <string name="lunes">Lunes</string>
-    <string name="martes">Martes</string>
-    <string name="miercoles">Miercoles</string>
-    <string name="jueves">Jueves</string>
-    <string name="viernes">Viernes</string>
+    <string name="lunes">L</string>
+    <string name="martes">M</string>
+    <string name="miercoles">M</string>
+    <string name="jueves">J</string>
+    <string name="viernes">V</string>
 </resources>

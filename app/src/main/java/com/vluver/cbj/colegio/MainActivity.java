@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.vluver.cbj.colegio.Docente.DocenteActivity;
+import com.vluver.cbj.colegio.Docente.SesionDocente;
 import com.vluver.cbj.colegio.Estudiante.EstudianteActivity;
 import com.vluver.cbj.colegio.Estudiante.SeleccionCursoActivity;
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else if (estadoSesion.isLoggedInTeacher()){
-            Intent intent = new Intent(MainActivity.this,DocenteActivity.class);
+            Intent intent = new Intent(MainActivity.this, SesionDocente.class);
             startActivity(intent);
             finish();
         }
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         docente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, DocenteActivity.class));
+                startActivity(new Intent(MainActivity.this, SesionDocente.class));
             }
         });
         estudiante.setOnClickListener(new View.OnClickListener() {
