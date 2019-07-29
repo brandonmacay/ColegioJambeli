@@ -43,9 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="5dp"
         android:background="@color/rojo"
         android:text="@string/docente"
-        android:layout_margin="5dp"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
 

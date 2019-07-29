@@ -1,50 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Estudiante.fragments.HorarioFrag">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/btnlunes"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lunes"
-            android:textColor="@color/blanco"
-            android:background="@color/verde"
+            android:background="@drawable/estadobtnbackground"
             />
         <Button
+            android:id="@+id/btnmartes"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/martes"
-            android:background="?selectableItemBackgroundBorderless"
+            android:background="@drawable/estadobtnbackground"
             />
         <Button
+            android:id="@+id/btnmiercoles"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/miercoles"
-            android:background="?selectableItemBackgroundBorderless"
+            android:background="@drawable/estadobtnbackground"
             />
         <Button
+            android:id="@+id/btnjueves"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/jueves"
-            android:background="?selectableItemBackgroundBorderless"
+            android:background="@drawable/estadobtnbackground"
             />
         <Button
+            android:id="@+id/btnviernes"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/viernes"
-            android:background="?selectableItemBackgroundBorderless"
+            android:background="@drawable/estadobtnbackground"
             />
     </LinearLayout>
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHorario"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
