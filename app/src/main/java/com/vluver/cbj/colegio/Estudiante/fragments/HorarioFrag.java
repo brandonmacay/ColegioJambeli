@@ -281,9 +281,9 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
         if( error instanceof NetworkError) {
             Toast.makeText(getContext(), "Sin  coneccion a internet", Toast.LENGTH_SHORT).show();
         } else if( error instanceof ServerError) {
-            Toast.makeText(getContext(), "Servidores fallado", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Servidores fallando", Toast.LENGTH_LONG).show();
         } else if( error instanceof AuthFailureError) {
-            Toast.makeText(getContext(), "Error desconocido", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Error 404", Toast.LENGTH_LONG).show();
         } else if( error instanceof ParseError) {
             Toast.makeText(getContext(), "Error al parsear datos...", Toast.LENGTH_LONG).show();
         } else if( error instanceof TimeoutError) {
