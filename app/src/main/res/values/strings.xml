@@ -16,4 +16,5 @@
     <string name="miercoles">M</string>
     <string name="jueves">J</string>
     <string name="viernes">V</string>
+    <string name="cerrar_sesion">Cerrar sesion</string>
 </resources>

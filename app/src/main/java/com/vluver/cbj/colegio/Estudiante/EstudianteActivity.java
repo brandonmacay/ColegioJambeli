@@ -9,10 +9,15 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
+import com.vluver.cbj.colegio.DatabaseHandler;
+import com.vluver.cbj.colegio.EstadoSesion;
 import com.vluver.cbj.colegio.Estudiante.fragments.DocentesFragment;
 import com.vluver.cbj.colegio.Estudiante.fragments.HorarioFrag;
+import com.vluver.cbj.colegio.MainActivity;
 import com.vluver.cbj.colegio.R;
 
 import java.util.ArrayList;
@@ -21,16 +26,33 @@ import java.util.List;
 public class EstudianteActivity extends AppCompatActivity {
 
     private String curso= null;
+    DatabaseHandler db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_estudiante);
+        db = new DatabaseHandler (this);
         Intent intent = this.getIntent();
-
         curso = intent.getStringExtra("curso_estudiante");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Estudiantes de "+curso);
+        toolbar.inflateMenu(R.menu.menu_estudiante);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
 
+                if (id == R.id.logout) {
+                    db.borrarHorarioEstudiante(EstudianteActivity.this);
+                    EstadoSesion estadoSesion = new EstadoSesion(EstudianteActivity.this);
+                    estadoSesion.setLoginStudent(false);
+                    startActivity(new Intent(EstudianteActivity.this, MainActivity.class));
+                    overridePendingTransition(0, 0);
+                    finish();
+                }
+                return EstudianteActivity.super.onOptionsItemSelected(item);
+            }
+        });
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 

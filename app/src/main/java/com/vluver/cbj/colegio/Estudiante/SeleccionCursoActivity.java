@@ -36,7 +36,8 @@ import java.util.ArrayList;
 public class SeleccionCursoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Toolbar toolbar;
     Button listo;
-    int curso_seleccionado;
+    int curso_seleccionadoint;
+    String curso_seleccionado;
     ProgressDialog progressDialog;
     EstadoSesion estadoSesion;
 
@@ -96,7 +97,9 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        curso_seleccionado = i;
+        curso_seleccionadoint = i;
+        curso_seleccionado = adapterView.getItemAtPosition(i).toString();
+
     }
 
     @Override
@@ -110,7 +113,7 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String url = "http://jambeli.hostingerapp.com/apirestAndroid/get_schedule.php?course_id="+curso_seleccionado;
+        String url = "http://jambeli.hostingerapp.com/apirestAndroid/get_schedule.php?course_id="+curso_seleccionadoint;
         VolleySingleton.
                 getInstance(SeleccionCursoActivity.this).
                 addToRequestQueue(
@@ -145,11 +148,13 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                                 intent.putExtra("curso_estudiante",curso_seleccionado);
                                                 startActivity(intent);
                                             }else{
+                                                progressDialog.dismiss();
                                                 String errorMsg = response.getString("error_msg");
                                                 Toast.makeText(SeleccionCursoActivity.this, errorMsg, Toast.LENGTH_LONG).show();
                                             }
 
                                         } catch (JSONException e) {
+                                            progressDialog.dismiss();
                                             Toast.makeText(SeleccionCursoActivity.this, ""+e, Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -157,8 +162,8 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                 new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
+                                        progressDialog.dismiss();
                                         checkerror(error);
-
                                     }
                                 }
                         )

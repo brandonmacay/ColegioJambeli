@@ -81,8 +81,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.execSQL("DELETE FROM "+TABLE_CLOCKING_NAME+" WHERE userid='"+id+"'");
         db.execSQL("DELETE FROM "+TABLE_NAME_ESTUDIANTE);
-        Toast.makeText(context,"borrado", Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(context,"Sesion cerrada!", Toast.LENGTH_SHORT).show();
     }
 
 
