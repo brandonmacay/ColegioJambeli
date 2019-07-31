@@ -144,8 +144,8 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                                 estadoSesion.setLoginStudent(true);
                                                 progressDialog.dismiss();
                                                 Intent intent = new Intent(SeleccionCursoActivity.this, EstudianteActivity.class);
+                                                estadoSesion.setCourseStudent(curso_seleccionado);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                intent.putExtra("curso_estudiante",curso_seleccionado);
                                                 startActivity(intent);
                                             }else{
                                                 progressDialog.dismiss();

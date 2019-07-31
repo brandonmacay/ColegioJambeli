@@ -27,15 +27,16 @@ public class EstudianteActivity extends AppCompatActivity {
 
     private String curso= null;
     DatabaseHandler db;
+    EstadoSesion estadoSesion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_estudiante);
         db = new DatabaseHandler (this);
-        Intent intent = this.getIntent();
-        curso = intent.getStringExtra("curso_estudiante");
+        estadoSesion = new EstadoSesion(EstudianteActivity.this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Estudiantes de "+curso);
+        toolbar.setTitle("Estudiantes de "+estadoSesion.getCourse());
         toolbar.inflateMenu(R.menu.menu_estudiante);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -44,7 +45,6 @@ public class EstudianteActivity extends AppCompatActivity {
 
                 if (id == R.id.logout) {
                     db.borrarHorarioEstudiante(EstudianteActivity.this);
-                    EstadoSesion estadoSesion = new EstadoSesion(EstudianteActivity.this);
                     estadoSesion.setLoginStudent(false);
                     startActivity(new Intent(EstudianteActivity.this, MainActivity.class));
                     overridePendingTransition(0, 0);

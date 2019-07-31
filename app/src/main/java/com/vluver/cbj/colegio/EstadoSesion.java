@@ -18,7 +18,7 @@ public class EstadoSesion {
 
     private static final String KEY_IS_LOGGED_IN_Student = "isLoggedInStudent";
     private static final String KEY_IS_LOGGED_IN_TEACHER = "isLoggedInTeacher";
-
+    private static final String COURSE = "";
     //declaracion de uso de sesion
     public EstadoSesion(Context context){
         this._context = context;
@@ -32,15 +32,24 @@ public class EstadoSesion {
         editor.commit();
     }
 
+    public void setCourseStudent(String courseStudent){
+        editor.putString(COURSE, courseStudent);
+        editor.commit();
+    }
+
     public void setLoginTeacher(boolean isLoggedIn){
         editor.putBoolean(KEY_IS_LOGGED_IN_TEACHER, isLoggedIn);
         editor.commit();
     }
 
-    public boolean isLoggedInStudent(){
+    public String getCourse(){
+        return sPref.getString(COURSE,COURSE);
+    }
+
+    boolean isLoggedInStudent(){
         return sPref.getBoolean(KEY_IS_LOGGED_IN_Student, false);
     }
-    public boolean isLoggedInTeacher(){
+    boolean isLoggedInTeacher(){
         return sPref.getBoolean(KEY_IS_LOGGED_IN_TEACHER, false);
     }
 }
