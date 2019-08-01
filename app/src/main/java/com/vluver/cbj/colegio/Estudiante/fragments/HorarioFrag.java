@@ -167,7 +167,6 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
 
     void setSchedule(String dia){
         databaseHandler = new DatabaseHandler(getContext());
-        //databaseHandler.getHorarioPorDia(dia);
         adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext());
         recyclerView.setAdapter(adapter);
     }
