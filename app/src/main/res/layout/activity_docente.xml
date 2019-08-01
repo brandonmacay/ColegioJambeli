@@ -25,6 +25,7 @@
         <EditText
             android:id="@+id/cedula"
             android:layout_width="match_parent"
+            android:fontFamily="@font/sanfrancisco"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint="Cedula" />
@@ -37,6 +38,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:fontFamily="@font/sanfrancisco"
             android:id="@+id/clave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,10 +50,12 @@
         android:id="@+id/btn_iniciar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Iniciar"
-        android:layout_margin="10dp"
+        android:text="Iniciar Sesion"
+        android:padding="15dp"
+        android:fontFamily="@font/sanfrancisco"
         android:layout_gravity="center"
-        android:background="@color/rojo"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/rojo"
         android:textColor="@color/blanco"
         android:textStyle="bold" />
 </LinearLayout>

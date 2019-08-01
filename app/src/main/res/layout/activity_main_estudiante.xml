@@ -11,6 +11,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:fontFamily="@font/sanfrancisco"
         android:layout_width=   "match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -22,6 +23,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
+        android:fontFamily="@font/sanfrancisco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"

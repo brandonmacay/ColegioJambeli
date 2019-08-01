@@ -65,7 +65,7 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final HorarioEstudianteModel estudianteModel = items.get(position);
         ((HorarioHolder) holder).materia.setText(estudianteModel.getMateria());
-        ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHoraInicial()+"-"+estudianteModel.getHoraFinal());
+        ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHoraInicial()+" - "+estudianteModel.getHoraFinal());
     }
 
 

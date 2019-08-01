@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/btnlunes"
+            android:fontFamily="@font/sanfrancisco"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
             android:background="@drawable/estadobtnbackground"
             />
         <Button
+            android:fontFamily="@font/sanfrancisco"
             android:id="@+id/btnmartes"
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -30,6 +32,7 @@
             android:background="@drawable/estadobtnbackground"
             />
         <Button
+            android:fontFamily="@font/sanfrancisco"
             android:id="@+id/btnmiercoles"
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -38,6 +41,7 @@
             android:background="@drawable/estadobtnbackground"
             />
         <Button
+            android:fontFamily="@font/sanfrancisco"
             android:id="@+id/btnjueves"
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -46,6 +50,7 @@
             android:background="@drawable/estadobtnbackground"
             />
         <Button
+            android:fontFamily="@font/sanfrancisco"
             android:id="@+id/btnviernes"
             android:layout_weight="1"
             android:layout_width="wrap_content"
