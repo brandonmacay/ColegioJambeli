@@ -139,18 +139,17 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                             if (!error){
                                                 DatabaseHandler db = new DatabaseHandler (SeleccionCursoActivity.this);
                                                 JSONObject h_JSON = response.getJSONObject("horario");
-                                                JSONArray horarios = h_JSON.getJSONArray("docente");
+                                                JSONArray horarios = h_JSON.getJSONArray("dia");
                                                 for (int i = 0; i < horarios.length(); i++){
                                                     JSONArray arrayDocente = h_JSON.getJSONArray("docente");
-                                                    JSONArray arrayGrado = h_JSON.getJSONArray("grado");
                                                     JSONArray arrayDia = h_JSON.getJSONArray("dia");
                                                     JSONArray arrayHoraIni = h_JSON.getJSONArray("hora_ini");
                                                     JSONArray arrayHoraFin = h_JSON.getJSONArray("hora_fin");
                                                     JSONArray arrayMateria = h_JSON.getJSONArray("materia");
 
-                                                    db.insertar_horario(arrayGrado.getString(i),
-                                                            arrayDocente.getString(i),arrayDia.getString(i),
-                                                            arrayHoraIni.getString(i),arrayHoraFin.getString(i),arrayMateria.getString(i));
+                                                    db.insertar_horario(arrayDocente.getString(i),arrayDia.getString(i),
+                                                            arrayHoraIni.getString(i),arrayHoraFin.getString(i),
+                                                            arrayMateria.getString(i));
                                                 }
                                                 estadoSesion.setLoginStudent(true);
                                                 progressDialog.dismiss();

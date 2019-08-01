@@ -6,10 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vluver.cbj.colegio.DatabaseHandler;
+import com.vluver.cbj.colegio.Estudiante.Adaptador.HorarioEstudianteAdaptador;
 import com.vluver.cbj.colegio.R;
 
 import java.util.Calendar;
@@ -21,6 +25,9 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     View view;
     Button lu,ma,mi,ju,vi;
     RecyclerView recyclerView;
+    RecyclerView.LayoutManager mLayoutManager;
+    DatabaseHandler databaseHandler;
+    private HorarioEstudianteAdaptador adapter;
     public HorarioFrag() {
         // Required empty public constructor
     }
@@ -37,6 +44,9 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
         ju = view.findViewById(R.id.btnjueves);
         vi = view.findViewById(R.id.btnviernes);
         recyclerView = view.findViewById(R.id.rvHorario);
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
         lu.setOnClickListener(this);
         ma.setOnClickListener(this);
         mi.setOnClickListener(this);
@@ -98,6 +108,7 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
                 mi.setTextColor(getResources().getColor(R.color.negro));
                 ju.setTextColor(getResources().getColor(R.color.negro));
                 vi.setTextColor(getResources().getColor(R.color.negro));
+                setSchedule("LUNES");
                 break;
             case 1:
                 lu.setSelected(false);
@@ -110,6 +121,7 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
                 mi.setTextColor(getResources().getColor(R.color.negro));
                 ju.setTextColor(getResources().getColor(R.color.negro));
                 vi.setTextColor(getResources().getColor(R.color.negro));
+                setSchedule("MARTES");
                 break;
             case 2:
                 lu.setSelected(false);
@@ -122,6 +134,7 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
                 mi.setTextColor(getResources().getColor(R.color.blanco));
                 ju.setTextColor(getResources().getColor(R.color.negro));
                 vi.setTextColor(getResources().getColor(R.color.negro));
+                setSchedule("MIERCOLES");
                 break;
             case 3:
                 lu.setSelected(false);
@@ -134,6 +147,7 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
                 mi.setTextColor(getResources().getColor(R.color.negro));
                 ju.setTextColor(getResources().getColor(R.color.blanco));
                 vi.setTextColor(getResources().getColor(R.color.negro));
+                setSchedule("JUEVES");
                 break;
             case 4:
                 lu.setSelected(false);
@@ -146,8 +160,16 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
                 mi.setTextColor(getResources().getColor(R.color.negro));
                 ju.setTextColor(getResources().getColor(R.color.negro));
                 vi.setTextColor(getResources().getColor(R.color.blanco));
+                setSchedule("VIERNES");
                 break;
         }
+    }
+
+    void setSchedule(String dia){
+        databaseHandler = new DatabaseHandler(getContext());
+        //databaseHandler.getHorarioPorDia(dia);
+        adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext());
+        recyclerView.setAdapter(adapter);
     }
 
 
