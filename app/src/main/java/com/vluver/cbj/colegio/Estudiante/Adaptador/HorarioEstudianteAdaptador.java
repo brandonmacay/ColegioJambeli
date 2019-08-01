@@ -52,22 +52,20 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
 
     }
     public class HorarioHolder extends RecyclerView.ViewHolder{
-        TextView dia,docente,materia;
+        TextView tiempo,materia;
         HorarioHolder(View view){
             super(view);
-            dia = view.findViewById(R.id.txtdia);
-            docente = view.findViewById(R.id.txtdocente);
+            tiempo = view.findViewById(R.id.txttiempo);
             materia = view.findViewById(R.id.txtmateria);
         }
     }
 
-    @SuppressLint("Range")
+    @SuppressLint({"Range", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final HorarioEstudianteModel person = items.get(position);
-        ((HorarioHolder) holder).materia.setText(person.getMateria());
-        ((HorarioHolder) holder).docente.setText(person.getDocente());
-        ((HorarioHolder) holder).dia.setText(person.getDia());
+        final HorarioEstudianteModel estudianteModel = items.get(position);
+        ((HorarioHolder) holder).materia.setText(estudianteModel.getMateria());
+        ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHoraInicial()+"-"+estudianteModel.getHoraFinal());
     }
 
 
