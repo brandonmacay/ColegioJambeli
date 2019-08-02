@@ -9,6 +9,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -59,10 +60,21 @@
             android:background="@drawable/estadobtnbackground"
             />
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/daytxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LUNES"
+        android:textStyle="bold"
+        android:elegantTextHeight="true"
+        android:textSize="18sp"
+        android:textColor="@color/verdeoscuro"
+        android:gravity="center"
+        android:padding="5dp"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHorario"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="0dp" />
 </LinearLayout>

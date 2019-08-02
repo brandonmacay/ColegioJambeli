@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ import java.util.Calendar;
 public class HorarioFrag extends Fragment implements View.OnClickListener{
     View view;
     Button lu,ma,mi,ju,vi;
+    TextView setDay;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     DatabaseHandler databaseHandler;
@@ -44,6 +46,7 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
         mi = view.findViewById(R.id.btnmiercoles);
         ju = view.findViewById(R.id.btnjueves);
         vi = view.findViewById(R.id.btnviernes);
+        setDay = view.findViewById(R.id.daytxt);
         recyclerView = view.findViewById(R.id.rvHorario);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -167,6 +170,7 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     }
 
     void setSchedule(String dia){
+        setDay.setText(dia);
         databaseHandler = new DatabaseHandler(getContext());
         adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext());
         recyclerView.setAdapter(adapter);

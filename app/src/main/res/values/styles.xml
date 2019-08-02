@@ -16,6 +16,11 @@
         <item name="colorAccent">@color/rojoscuro</item>
     </style>
 
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/verde</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <style name="EstudianteStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/verde</item>

@@ -36,7 +36,7 @@ public class EstudianteActivity extends AppCompatActivity {
         estadoSesion = new EstadoSesion(EstudianteActivity.this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Estudiantes de "+estadoSesion.getCourse());
+        toolbar.setTitle(""+estadoSesion.getCourse());
         toolbar.inflateMenu(R.menu.menu_estudiante);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
