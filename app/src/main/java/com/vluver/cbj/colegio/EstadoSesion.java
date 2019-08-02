@@ -19,6 +19,8 @@ public class EstadoSesion {
     private static final String KEY_IS_LOGGED_IN_Student = "isLoggedInStudent";
     private static final String KEY_IS_LOGGED_IN_TEACHER = "isLoggedInTeacher";
     private static final String COURSE = "";
+    private static final String CEDULA = "";
+    private static final String DOCENTE = "";
     //declaracion de uso de sesion
     public EstadoSesion(Context context){
         this._context = context;
@@ -36,6 +38,14 @@ public class EstadoSesion {
         editor.putString(COURSE, courseStudent);
         editor.commit();
     }
+    public void setCedulaTeacher(String cedulaTeacher){
+        editor.putString(CEDULA, cedulaTeacher);
+        editor.commit();
+    }
+    public void setNameTeacher(String nameTeacher){
+        editor.putString(DOCENTE, nameTeacher);
+        editor.commit();
+    }
 
     public void setLoginTeacher(boolean isLoggedIn){
         editor.putBoolean(KEY_IS_LOGGED_IN_TEACHER, isLoggedIn);
@@ -44,6 +54,13 @@ public class EstadoSesion {
 
     public String getCourse(){
         return sPref.getString(COURSE,COURSE);
+    }
+
+    public String getCedula(){
+        return sPref.getString(CEDULA,CEDULA);
+    }
+    public String getDocente(){
+        return sPref.getString(DOCENTE,DOCENTE);
     }
 
     boolean isLoggedInStudent(){

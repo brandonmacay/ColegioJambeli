@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lunes"
-            android:background="@drawable/estadobtnbackground"
+            android:background="@drawable/estadobtnbackground_docente"
             />
         <Button
             android:id="@+id/btnmartes"
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/martes"
-            android:background="@drawable/estadobtnbackground"
+            android:background="@drawable/estadobtnbackground_docente"
             />
         <Button
             android:id="@+id/btnmiercoles"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/miercoles"
-            android:background="@drawable/estadobtnbackground"
+            android:background="@drawable/estadobtnbackground_docente"
             />
         <Button
             android:id="@+id/btnjueves"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/jueves"
-            android:background="@drawable/estadobtnbackground"
+            android:background="@drawable/estadobtnbackground_docente"
             />
         <Button
             android:id="@+id/btnviernes"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/viernes"
-            android:background="@drawable/estadobtnbackground"
+            android:background="@drawable/estadobtnbackground_docente"
             />
     </LinearLayout>
     <TextView
@@ -63,7 +63,7 @@
         android:textStyle="bold"
         android:elegantTextHeight="true"
         android:textSize="18sp"
-        android:textColor="@color/verdeoscuro"
+        android:textColor="@color/rojoscuro"
         android:gravity="center"
         android:padding="5dp"
         />

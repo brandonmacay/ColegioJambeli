@@ -25,26 +25,16 @@
         <EditText
             android:id="@+id/cedula"
             android:layout_width="match_parent"
-            android:fontFamily="@font/sanfrancisco"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint="Cedula" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="10dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        />
 
-        <EditText
-            android:fontFamily="@font/sanfrancisco"
-            android:id="@+id/clave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Clave" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_iniciar"
@@ -52,7 +42,6 @@
         android:layout_height="wrap_content"
         android:text="Iniciar Sesion"
         android:padding="15dp"
-        android:fontFamily="@font/sanfrancisco"
         android:layout_gravity="center"
         android:background="@drawable/border"
         android:backgroundTint="@color/rojo"

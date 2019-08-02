@@ -12,7 +12,6 @@
         android:text="07:00-08:00"
         android:layout_margin="5dp"
         android:id="@+id/txttiempo"
-        android:fontFamily="@font/sanfrancisco"
         />
     <TextView
         android:layout_width="match_parent"
@@ -22,7 +21,6 @@
         android:background="@drawable/border"
         android:textSize="20sp"
         android:maxLines="1"
-        android:fontFamily="@font/sanfrancisco"
         android:padding="8dp"
         android:ellipsize="end"
         android:id="@+id/txtmateria"

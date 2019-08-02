@@ -14,10 +14,10 @@ import com.vluver.cbj.colegio.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DocentesFragment extends Fragment {
+public class ConfiguracionFragment extends Fragment {
 
 
-    public DocentesFragment() {
+    public ConfiguracionFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class DocentesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_docentes, container, false);
+        return inflater.inflate(R.layout.fragmente_configuracion_estudiante, container, false);
     }
 
 }

@@ -48,7 +48,6 @@
             android:layout_weight="1" />
 
         <Button
-            android:fontFamily="@font/sanfrancisco"
             android:id="@+id/btn_listo"
             android:textColor="@android:color/white"
             android:textStyle="bold"

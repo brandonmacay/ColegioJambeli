@@ -51,6 +51,7 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
         return new HorarioHolder(v);
 
     }
+
     public class HorarioHolder extends RecyclerView.ViewHolder{
         TextView tiempo,materia;
         HorarioHolder(View view){
@@ -58,6 +59,7 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
             tiempo = view.findViewById(R.id.txttiempo);
             materia = view.findViewById(R.id.txtmateria);
         }
+
     }
 
     @SuppressLint({"Range", "SetTextI18n"})
@@ -66,6 +68,7 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
         final HorarioEstudianteModel estudianteModel = items.get(position);
         ((HorarioHolder) holder).materia.setText(estudianteModel.getMateria());
         ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHoraInicial()+" - "+estudianteModel.getHoraFinal());
+
     }
 
 
