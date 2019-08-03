@@ -196,13 +196,7 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                         )
                 );
     }
-    int incrementTime(int time) {
-        time++;
-        int hours = time / 100;
-        int minutes = (time - hours * 100) % 60;
-        if (minutes == 0) hours++;
-        return hours * 100 + minutes;
-    }
+
     private void checkerror(VolleyError error){
         if( error instanceof NetworkError) {
             Toast.makeText(SeleccionCursoActivity.this, "Sin  coneccion a internet", Toast.LENGTH_SHORT).show();

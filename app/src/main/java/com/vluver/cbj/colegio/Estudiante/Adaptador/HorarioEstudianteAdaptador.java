@@ -4,11 +4,14 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,15 +19,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vluver.cbj.colegio.Estudiante.Modelo.HorarioEstudianteModel;
 import com.vluver.cbj.colegio.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.Timer;
 
 public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
     private List<HorarioEstudianteModel> items;
     private Context context;
     private int mPreviousPosition;
-    public HorarioEstudianteAdaptador(List<HorarioEstudianteModel> items, Context context) {
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    String diadelasemana;
+    public HorarioEstudianteAdaptador(List<HorarioEstudianteModel> items, Context context,String diadelasemana) {
         this.context = context;
         this.items = items;
+        this.diadelasemana=diadelasemana;
     }
 
     @Override
@@ -58,10 +71,19 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
 
     public class HorarioHolder extends RecyclerView.ViewHolder{
         TextView tiempo,materia;
+        ImageView doneicon;
         HorarioHolder(View view){
             super(view);
             tiempo = view.findViewById(R.id.txttiempo);
             materia = view.findViewById(R.id.txtmateria);
+            doneicon = view.findViewById(R.id.ic_done);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final HorarioEstudianteModel estudianteModel = items.get(getAdapterPosition());
+                    Toast.makeText(context, "Evento click: "+diadelasemana +" "+ estudianteModel.getDia() , Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
     }
@@ -72,25 +94,36 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
         final HorarioEstudianteModel estudianteModel = items.get(position);
         ((HorarioHolder) holder).materia.setText(estudianteModel.getMateria());
         ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHoraInicial()+" - "+estudianteModel.getHoraFinal());
+        boolean correct = diadelasemana.equals(estudianteModel.getDia());
+        if (correct) {
+            try {
+                String th = sdf.format(cal.getTime());
+                String hi = estudianteModel.getHoraInicial();
+                String hf = estudianteModel.getHoraFinal();
+                Date tiempoHoy = sdf.parse(th);
+                Date horaini =  sdf.parse(hi);
+                Date horafinal = sdf.parse(hf);
+                if (Objects.requireNonNull(horaini).before(tiempoHoy)){
+                    ((HorarioHolder) holder).doneicon.setVisibility(View.VISIBLE);
+                }
 
-        if (position > mPreviousPosition) {
-            animate1(holder, true);
-        } else {
-            animate1(holder, false);
+                if (Objects.requireNonNull(horaini).before(tiempoHoy) && Objects.requireNonNull(tiempoHoy).before(horafinal) || Objects.requireNonNull(tiempoHoy).equals(horaini)){
+                    ((HorarioHolder) holder).materia.setSelected(true);
+                    ((HorarioHolder) holder).doneicon.setVisibility(View.GONE);
+                    ((HorarioHolder) holder).materia.setTextColor(context.getResources().getColor(android.R.color.white));
+                    ((HorarioHolder) holder).tiempo.setTextColor(context.getResources().getColor(R.color.verde));
+                    ((HorarioHolder) holder).tiempo.setTypeface(Typeface.DEFAULT_BOLD);
+                }
+
+            } catch (Exception e) {
+                Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
+
         mPreviousPosition = position;
 
     }
-    public void animate1(RecyclerView.ViewHolder holder, boolean goesDown) {
-        int holderHeight = holder.itemView.getHeight();
-        holder.itemView.setPivotY(goesDown == true ? 0 : holderHeight);
 
-        AnimatorSet animatorSet = new AnimatorSet();
-        ObjectAnimator animatorTranslateY = ObjectAnimator.ofFloat(holder.itemView, "translationY", goesDown == true ? 150 : 0, 0);
-        animatorTranslateY.setInterpolator(new AccelerateInterpolator());
-        animatorTranslateY.setDuration(150);
-        animatorTranslateY.start();
-    }
 
 
 }

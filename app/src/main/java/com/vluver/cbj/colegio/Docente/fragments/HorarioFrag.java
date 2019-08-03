@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     RecyclerView.LayoutManager mLayoutManager;
     DatabaseHandler databaseHandler;
     private HorarioEstudianteAdaptador adapter;
+
     public HorarioFrag() {
         // Required empty public constructor
     }
@@ -168,9 +170,12 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     }
 
     void setSchedule(String dia){
+
+
+
         setDay.setText(dia);
         databaseHandler = new DatabaseHandler(getContext());
-        adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext());
+        adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext(),"");
         recyclerView.setAdapter(adapter);
     }
 

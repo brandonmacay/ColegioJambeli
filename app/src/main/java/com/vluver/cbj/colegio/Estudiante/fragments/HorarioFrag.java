@@ -32,6 +32,8 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     RecyclerView.LayoutManager mLayoutManager;
     DatabaseHandler databaseHandler;
     private HorarioEstudianteAdaptador adapter;
+    private int dayOfWeek;
+
     public HorarioFrag() {
         // Required empty public constructor
     }
@@ -59,7 +61,7 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
         vi.setOnClickListener(this);
 
         Calendar c = Calendar.getInstance();
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         if (Calendar.MONDAY == dayOfWeek) {
             setCurretDay(0);
         } else if (Calendar.TUESDAY == dayOfWeek) {
@@ -173,9 +175,32 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     }
 
     void setSchedule(String dia){
+        String diadehoy;
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (day) {
+            case Calendar.MONDAY:
+                diadehoy = "LUNES";
+                break;
+            case Calendar.TUESDAY:
+                diadehoy = "MARTES";
+                break;
+            case Calendar.WEDNESDAY:
+                diadehoy = "MIERCOLES";
+                break;
+            case Calendar.THURSDAY:
+                diadehoy = "JUEVES";
+                break;
+            case Calendar.FRIDAY:
+                diadehoy = "VIERNES";
+                break;
+            default:
+                diadehoy = "NOTHING";
+                break;
+        }
         setDay.setText(dia);
         databaseHandler = new DatabaseHandler(getContext());
-        adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext());
+        adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext(),diadehoy);
         recyclerView.setAdapter(adapter);
     }
 
