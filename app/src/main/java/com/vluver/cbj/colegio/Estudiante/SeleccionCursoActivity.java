@@ -2,6 +2,7 @@ package com.vluver.cbj.colegio.Estudiante;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class SeleccionCursoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Toolbar toolbar;
@@ -131,6 +136,7 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                         new JsonObjectRequest(
                                 Request.Method.GET, url, (JSONObject) null,
                                 new Response.Listener<JSONObject>() {
+                                    @SuppressLint("DefaultLocale")
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         // Procesar la respuesta Json
@@ -143,13 +149,24 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                                 for (int i = 0; i < horarios.length(); i++){
                                                     JSONArray arrayDocente = h_JSON.getJSONArray("docente");
                                                     JSONArray arrayDia = h_JSON.getJSONArray("dia");
+
+                                                    //Toast.makeText(getContext(), ""+hours+":"+minutes, Toast.LENGTH_SHORT).show();
                                                     JSONArray arrayHoraIni = h_JSON.getJSONArray("hora_ini");
                                                     JSONArray arrayHoraFin = h_JSON.getJSONArray("hora_fin");
                                                     JSONArray arrayMateria = h_JSON.getJSONArray("materia");
 
+                                                    int horaini = Integer.parseInt(arrayHoraIni.getString(i));
+                                                    int hours = horaini / 100;
+                                                    int minutes = (horaini - hours *100)% 60;
+
+                                                    int horafin = Integer.parseInt(arrayHoraFin.getString(i));
+                                                    int hoursfin = horafin / 100;
+                                                    int minutesfin = (horafin - hoursfin *100)% 60;
+
                                                     db.insertar_horario(arrayDocente.getString(i),arrayDia.getString(i),
-                                                            arrayHoraIni.getString(i),arrayHoraFin.getString(i),
+                                                            String.format("%02d:%02d",hours,minutes),String.format("%02d:%02d",hoursfin,minutesfin),
                                                             arrayMateria.getString(i));
+
                                                 }
                                                 estadoSesion.setLoginStudent(true);
                                                 progressDialog.dismiss();
@@ -179,7 +196,13 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                         )
                 );
     }
-
+    int incrementTime(int time) {
+        time++;
+        int hours = time / 100;
+        int minutes = (time - hours * 100) % 60;
+        if (minutes == 0) hours++;
+        return hours * 100 + minutes;
+    }
     private void checkerror(VolleyError error){
         if( error instanceof NetworkError) {
             Toast.makeText(SeleccionCursoActivity.this, "Sin  coneccion a internet", Toast.LENGTH_SHORT).show();

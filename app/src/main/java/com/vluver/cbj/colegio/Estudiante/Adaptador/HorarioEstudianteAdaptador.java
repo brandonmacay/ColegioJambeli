@@ -1,10 +1,13 @@
 package com.vluver.cbj.colegio.Estudiante.Adaptador;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +21,7 @@ import java.util.List;
 public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
     private List<HorarioEstudianteModel> items;
     private Context context;
+    private int mPreviousPosition;
     public HorarioEstudianteAdaptador(List<HorarioEstudianteModel> items, Context context) {
         this.context = context;
         this.items = items;
@@ -69,6 +73,23 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
         ((HorarioHolder) holder).materia.setText(estudianteModel.getMateria());
         ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHoraInicial()+" - "+estudianteModel.getHoraFinal());
 
+        if (position > mPreviousPosition) {
+            animate1(holder, true);
+        } else {
+            animate1(holder, false);
+        }
+        mPreviousPosition = position;
+
+    }
+    public void animate1(RecyclerView.ViewHolder holder, boolean goesDown) {
+        int holderHeight = holder.itemView.getHeight();
+        holder.itemView.setPivotY(goesDown == true ? 0 : holderHeight);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        ObjectAnimator animatorTranslateY = ObjectAnimator.ofFloat(holder.itemView, "translationY", goesDown == true ? 150 : 0, 0);
+        animatorTranslateY.setInterpolator(new AccelerateInterpolator());
+        animatorTranslateY.setDuration(150);
+        animatorTranslateY.start();
     }
 
 

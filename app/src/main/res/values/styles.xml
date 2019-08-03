@@ -25,12 +25,12 @@
     </style>
 
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/verde</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="TabTextAppearanceDocente" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/rojo</item>
         <item name="android:textStyle">bold</item>
     </style>

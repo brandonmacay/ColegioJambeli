@@ -49,8 +49,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 COLUMN_ID_ESTUDIANTE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_DOCENTE_ESTUDIANTE + " TEXT  NOT NULL, " +
                 COLUMN_DIA_ESTUDIANTE + " TEXT  NOT NULL, " +
-                COLUMN_HORA_INI_ESTUDIANTE + " TEXT NOT NULL, " +
-                COLUMN_HORA_FIN_ESTUDIANTE + " TEXT NOT NULL, " +
+                COLUMN_HORA_INI_ESTUDIANTE + " DEFAULT CURRENT_TIME, " +
+                COLUMN_HORA_FIN_ESTUDIANTE + " DEFAULT CURRENT_TIME, " +
                 COLUMN_MATERIA_ESTUDIANTE + " TEXT NOT NULL); "
         );
 
@@ -133,11 +133,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public Cursor get_horario_estudiante(){
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "SELECT  * FROM " + TABLE_NAME_ESTUDIANTE;
-
         Cursor cursor = db.rawQuery(query, null);
-
         return cursor;
 
 

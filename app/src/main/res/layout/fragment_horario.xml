@@ -12,6 +12,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
@@ -55,6 +56,13 @@
             android:background="@drawable/estadobtnbackground"
             />
     </LinearLayout>
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/btn_normal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
     <TextView
         android:id="@+id/daytxt"
         android:layout_width="match_parent"
@@ -62,9 +70,9 @@
         android:text="LUNES"
         android:textStyle="bold"
         android:elegantTextHeight="true"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/verdeoscuro"
-        android:gravity="center"
+        android:layout_marginStart="10dp"
         android:padding="5dp"
         />
     <androidx.recyclerview.widget.RecyclerView

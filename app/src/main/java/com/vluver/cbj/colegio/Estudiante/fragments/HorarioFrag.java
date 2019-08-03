@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vluver.cbj.colegio.DatabaseHandler;
 import com.vluver.cbj.colegio.Estudiante.Adaptador.HorarioEstudianteAdaptador;
+import com.vluver.cbj.colegio.Estudiante.SeleccionCursoActivity;
 import com.vluver.cbj.colegio.R;
 
 import java.util.Calendar;
@@ -74,6 +75,8 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
         } else if (Calendar.SUNDAY == dayOfWeek) {
             setCurretDay(0);
         }
+
+
         return view;
     }
 
