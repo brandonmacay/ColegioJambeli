@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 public class EstadoSesion {
     private static final String TAG = EstadoSesion.class.getSimpleName();
-
     SharedPreferences sPref;
     SharedPreferences.Editor editor;
     Context _context;
@@ -15,7 +14,6 @@ public class EstadoSesion {
 
     // nombre del archivo shared
     private static final String PREF_NAME = "userlogin";
-
     private static final String KEY_IS_LOGGED_IN_Student = "isLoggedInStudent";
     private static final String KEY_IS_LOGGED_IN_TEACHER = "isLoggedInTeacher";
     private static final String COURSE = "";
@@ -27,13 +25,11 @@ public class EstadoSesion {
         sPref  = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = sPref.edit();
     }
-
     //como marcador: se utiliza cuando el usuario ha iniciado sesión
     public void setLoginStudent(boolean isLoggedIn){
         editor.putBoolean(KEY_IS_LOGGED_IN_Student, isLoggedIn);
         editor.commit();
     }
-
     public void setCourseStudent(String courseStudent){
         editor.putString(COURSE, courseStudent);
         editor.commit();
@@ -46,23 +42,19 @@ public class EstadoSesion {
         editor.putString(DOCENTE, nameTeacher);
         editor.commit();
     }
-
     public void setLoginTeacher(boolean isLoggedIn){
         editor.putBoolean(KEY_IS_LOGGED_IN_TEACHER, isLoggedIn);
         editor.commit();
     }
-
     public String getCourse(){
         return sPref.getString(COURSE,COURSE);
     }
-
     public String getCedula(){
         return sPref.getString(CEDULA,CEDULA);
     }
     public String getDocente(){
         return sPref.getString(DOCENTE,DOCENTE);
     }
-
     boolean isLoggedInStudent(){
         return sPref.getBoolean(KEY_IS_LOGGED_IN_Student, false);
     }

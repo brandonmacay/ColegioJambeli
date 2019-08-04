@@ -170,9 +170,6 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     }
 
     void setSchedule(String dia){
-
-
-
         setDay.setText(dia);
         databaseHandler = new DatabaseHandler(getContext());
         adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext(),"");

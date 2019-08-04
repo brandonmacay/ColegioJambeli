@@ -34,7 +34,7 @@ public class VolleySingleton {
      * Obtiene la instancia de la cola de peticiones
      * @return cola de peticiones
      */
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(context.getApplicationContext());
         }

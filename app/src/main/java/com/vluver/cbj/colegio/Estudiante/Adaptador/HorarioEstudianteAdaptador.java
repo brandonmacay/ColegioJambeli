@@ -62,9 +62,7 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_horario_estudiante, parent, false);
-
         return new HorarioHolder(v);
 
     }
@@ -80,12 +78,10 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final HorarioEstudianteModel estudianteModel = items.get(getAdapterPosition());
-                    Toast.makeText(context, "Evento click: "+diadelasemana +" "+ estudianteModel.getDia() , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Evento clickeado" , Toast.LENGTH_SHORT).show();
                 }
             });
         }
-
     }
 
     @SuppressLint({"Range", "SetTextI18n"})
@@ -111,7 +107,7 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
                     ((HorarioHolder) holder).materia.setSelected(true);
                     ((HorarioHolder) holder).doneicon.setVisibility(View.GONE);
                     ((HorarioHolder) holder).materia.setTextColor(context.getResources().getColor(android.R.color.white));
-                    ((HorarioHolder) holder).tiempo.setTextColor(context.getResources().getColor(R.color.verde));
+                    ((HorarioHolder) holder).tiempo.setTextColor(context.getResources().getColor(R.color.verdeoscuro));
                     ((HorarioHolder) holder).tiempo.setTypeface(Typeface.DEFAULT_BOLD);
                 }
 
@@ -123,7 +119,4 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
         mPreviousPosition = position;
 
     }
-
-
-
 }

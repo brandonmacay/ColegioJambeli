@@ -15,11 +15,9 @@ import com.vluver.cbj.colegio.R;
  */
 public class ConfiguracionFragment extends Fragment {
 
-
     public ConfiguracionFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

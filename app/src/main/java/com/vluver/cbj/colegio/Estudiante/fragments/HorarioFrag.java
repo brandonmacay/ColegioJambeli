@@ -77,8 +77,6 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
         } else if (Calendar.SUNDAY == dayOfWeek) {
             setCurretDay(0);
         }
-
-
         return view;
     }
 

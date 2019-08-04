@@ -33,7 +33,6 @@ public class DocenteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_docente_main);
         db = new DatabaseHandler (this);
         estadoSesion = new EstadoSesion(DocenteActivity.this);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(""+estadoSesion.getDocente());
         toolbar.inflateMenu(R.menu.menu_estudiante);
