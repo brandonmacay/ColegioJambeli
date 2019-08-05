@@ -155,16 +155,9 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                                     JSONArray arrayHoraFin = h_JSON.getJSONArray("hora_fin");
                                                     JSONArray arrayMateria = h_JSON.getJSONArray("materia");
 
-                                                    int horaini = Integer.parseInt(arrayHoraIni.getString(i));
-                                                    int hours = horaini / 100;
-                                                    int minutes = (horaini - hours *100)% 60;
-
-                                                    int horafin = Integer.parseInt(arrayHoraFin.getString(i));
-                                                    int hoursfin = horafin / 100;
-                                                    int minutesfin = (horafin - hoursfin *100)% 60;
 
                                                     db.insertar_horario(arrayDocente.getString(i),arrayDia.getString(i),
-                                                            String.format("%02d:%02d",hours,minutes),String.format("%02d:%02d",hoursfin,minutesfin),
+                                                            arrayHoraIni.getString(i).substring(0,5),arrayHoraFin.getString(i).substring(0,5),
                                                             arrayMateria.getString(i));
 
                                                 }

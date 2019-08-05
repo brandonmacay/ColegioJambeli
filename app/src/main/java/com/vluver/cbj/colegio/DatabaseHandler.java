@@ -49,8 +49,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 COLUMN_ID_ESTUDIANTE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_DOCENTE_ESTUDIANTE + " TEXT  NOT NULL, " +
                 COLUMN_DIA_ESTUDIANTE + " TEXT  NOT NULL, " +
-                COLUMN_HORA_INI_ESTUDIANTE + " DEFAULT CURRENT_TIME, " +
-                COLUMN_HORA_FIN_ESTUDIANTE + " DEFAULT CURRENT_TIME, " +
+                COLUMN_HORA_INI_ESTUDIANTE + " TEXT  NOT NULL, " +
+                COLUMN_HORA_FIN_ESTUDIANTE + " TEXT  NOT NULL, " +
                 COLUMN_MATERIA_ESTUDIANTE + " TEXT NOT NULL); "
         );
 
