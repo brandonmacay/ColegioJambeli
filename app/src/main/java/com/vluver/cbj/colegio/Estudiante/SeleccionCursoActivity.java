@@ -156,7 +156,7 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                                     JSONArray arrayMateria = h_JSON.getJSONArray("materia");
 
 
-                                                    db.insertar_horario(arrayDocente.getString(i),arrayDia.getString(i),
+                                                    db.insertar_horario_estudiante(arrayDocente.getString(i),arrayDia.getString(i),
                                                             arrayHoraIni.getString(i).substring(0,5),arrayHoraFin.getString(i).substring(0,5),
                                                             arrayMateria.getString(i));
 

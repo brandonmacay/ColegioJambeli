@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import com.vluver.cbj.colegio.Docente.Modelo.HorarioDocenteModel;
 import com.vluver.cbj.colegio.Estudiante.Modelo.HorarioEstudianteModel;
 
 import java.util.LinkedList;
@@ -28,16 +29,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_MATERIA_ESTUDIANTE = "materia";
 
 
-   /* //Tabla para los horarios del docente
-    public static final String TABLE_CLOCKING_NAME = "horario_docente";
+   //Tabla para los horarios del docente
+    public static final String TABLE_NAME_DOCENTE = "horario_docente";
+
     public static final String COLUMN_ID_DOCENTE = "_id";
-    public static final String COLUMN_CLOCKING_USERID = "userid";
-    public static final String COLUMN_CLOCKING_SDATE = "sdate";
-    public static final String COLUMN_CLOCKING_IN = "workin";
-    public static final String COLUMN_CLOCKING_OUT = "workout";
-    public static final String COLUMN_CLOCKING_BREAKIN = "breakin";
-    public static final String COLUMN_CLOCKING_BREAKOUT = "breakout";
-    public static final String COLUMN_CLOCKING_FORMATDATE = "formatdate";*/
+
+    public static final String COLUMN_CURSOS = "cursos";
+    public static final String COLUMN_DIA_DOCENTE = "dia";
+    public static final String COLUMN_HORA_INI_DOCENTE = "hora_inicial";
+    public static final String COLUMN_HORA_FIN_DOCENTE = "hora_final";
+    public static final String COLUMN_MATERIA_DOCENTE = "materia";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
@@ -45,6 +46,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TABLE_NAME_DOCENTE + " (" +
+                COLUMN_ID_DOCENTE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_CURSOS + " TEXT  NOT NULL, " +
+                COLUMN_DIA_DOCENTE + " TEXT  NOT NULL, " +
+                COLUMN_HORA_INI_DOCENTE + " TEXT  NOT NULL, " +
+                COLUMN_HORA_FIN_DOCENTE + " TEXT  NOT NULL, " +
+                COLUMN_MATERIA_DOCENTE + " TEXT NOT NULL); "
+        );
+
         db.execSQL(" CREATE TABLE IF NOT EXISTS " + TABLE_NAME_ESTUDIANTE + " (" +
                 COLUMN_ID_ESTUDIANTE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_DOCENTE_ESTUDIANTE + " TEXT  NOT NULL, " +
@@ -53,18 +63,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 COLUMN_HORA_FIN_ESTUDIANTE + " TEXT  NOT NULL, " +
                 COLUMN_MATERIA_ESTUDIANTE + " TEXT NOT NULL); "
         );
-
-        /*db.execSQL(" CREATE TABLE IF NOT EXISTS " + TABLE_CLOCKING_NAME + " (" +
-                COLUMN_CLOCKING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_CLOCKING_USERID + " NUMBER NOT NULL, " +
-                COLUMN_CLOCKING_SDATE + " DATE , " +
-                COLUMN_CLOCKING_IN + " DATETIME , " +
-                COLUMN_CLOCKING_OUT + " DATETIME , " +
-                COLUMN_CLOCKING_BREAKIN + " DATETIME , " +
-                COLUMN_CLOCKING_BREAKOUT + " DATETIME , " +
-                COLUMN_CLOCKING_FORMATDATE + " TEXT );"
-
-        );*/
 
     }
 
@@ -82,16 +80,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void borrarHorarioEstudiante( Context context) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        //db.execSQL("DELETE FROM "+TABLE_CLOCKING_NAME+" WHERE userid='"+id+"'");
         db.execSQL("DELETE FROM "+TABLE_NAME_ESTUDIANTE);
+        Toast.makeText(context,"Sesion cerrada!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void borrarHorarioDocente( Context context) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+TABLE_NAME_DOCENTE);
         Toast.makeText(context,"Sesion cerrada!", Toast.LENGTH_SHORT).show();
     }
 
 
     //insertar horario_estudiante
-
-    public void insertar_horario( String docente, String dia,String hora_ini,String horafin,String materia) {
+    public void insertar_horario_estudiante( String docente, String dia,String hora_ini,String horafin,String materia) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -106,7 +107,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<HorarioEstudianteModel> getHorarioPorDia(String dia_) {
+    //insertar horario_docentes
+    public void insertar_horario_docente( String cursos, String dia,String hora_ini,String horafin,String materia) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CURSOS, cursos);
+        values.put(COLUMN_DIA_DOCENTE, dia);
+        values.put(COLUMN_HORA_INI_DOCENTE,hora_ini);
+        values.put(COLUMN_HORA_FIN_DOCENTE, horafin);
+        values.put(COLUMN_MATERIA_DOCENTE, materia);
+        // insert
+        db.insert(TABLE_NAME_DOCENTE,null, values);
+        db.close();
+    }
+
+    public List<HorarioEstudianteModel> getHorarioEstudiantePorDia(String dia_) {
         String query ;
         query = "SELECT  * FROM " + TABLE_NAME_ESTUDIANTE + " WHERE dia='"+dia_+"'";
         List<HorarioEstudianteModel> listadoHorario = new LinkedList<>();
@@ -121,6 +138,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 horarioEstudianteModel.setHoraInicial(cursor.getString(cursor.getColumnIndex(COLUMN_HORA_INI_ESTUDIANTE)));
                 horarioEstudianteModel.setHoraFinal(cursor.getString(cursor.getColumnIndex(COLUMN_HORA_FIN_ESTUDIANTE)));
                 horarioEstudianteModel.setMateria(cursor.getString(cursor.getColumnIndex(COLUMN_MATERIA_ESTUDIANTE)));
+                listadoHorario.add(horarioEstudianteModel);
+            } while (cursor.moveToNext());
+
+            db.close();
+            cursor.close();
+        }
+        return listadoHorario;
+    }
+
+    public List<HorarioDocenteModel> getHorarioDocentePorDia(String dia_) {
+        String query ;
+        query = "SELECT  * FROM " + TABLE_NAME_DOCENTE + " WHERE dia='"+dia_+"'";
+        List<HorarioDocenteModel> listadoHorario = new LinkedList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        HorarioDocenteModel horarioEstudianteModel;
+        if (cursor.moveToFirst()) {
+            do {
+                horarioEstudianteModel = new HorarioDocenteModel();
+                horarioEstudianteModel.setCurso(cursor.getString(cursor.getColumnIndex(COLUMN_CURSOS)));
+                horarioEstudianteModel.setDia(cursor.getString(cursor.getColumnIndex(COLUMN_DIA_DOCENTE)));
+                horarioEstudianteModel.setHoraInicial(cursor.getString(cursor.getColumnIndex(COLUMN_HORA_INI_DOCENTE)));
+                horarioEstudianteModel.setHoraFinal(cursor.getString(cursor.getColumnIndex(COLUMN_HORA_FIN_DOCENTE)));
+                horarioEstudianteModel.setMateria(cursor.getString(cursor.getColumnIndex(COLUMN_MATERIA_DOCENTE)));
                 listadoHorario.add(horarioEstudianteModel);
             } while (cursor.moveToNext());
 

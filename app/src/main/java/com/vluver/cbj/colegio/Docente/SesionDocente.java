@@ -91,6 +91,20 @@ public class SesionDocente extends AppCompatActivity {
                                         try {
                                             boolean error = response.getBoolean("error");
                                             if (!error){
+                                                DatabaseHandler db = new DatabaseHandler (SesionDocente.this);
+                                                JSONObject h_JSON = response.getJSONObject("horario");
+                                                JSONArray horarios = h_JSON.getJSONArray("dia");
+                                                for (int i = 0; i < horarios.length(); i++){
+                                                    JSONArray arrayCursos = h_JSON.getJSONArray("curso");
+                                                    JSONArray arrayDia = h_JSON.getJSONArray("dia");
+                                                    JSONArray arrayHoraIni = h_JSON.getJSONArray("hora_ini");
+                                                    JSONArray arrayHoraFin = h_JSON.getJSONArray("hora_fin");
+                                                    JSONArray arrayMateria = h_JSON.getJSONArray("materia");
+                                                    db.insertar_horario_docente(arrayCursos.getString(i),arrayDia.getString(i),
+                                                            arrayHoraIni.getString(i).substring(0,5),arrayHoraFin.getString(i).substring(0,5),
+                                                            arrayMateria.getString(i));
+
+                                                }
                                                 estadoSesion.setLoginTeacher(true);
                                                 progressDialog.dismiss();
                                                 Intent intent = new Intent(SesionDocente.this, DocenteActivity.class);

@@ -13,10 +13,9 @@ import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
 import com.vluver.cbj.colegio.DatabaseHandler;
-import com.vluver.cbj.colegio.Docente.fragments.HorarioFrag;
+import com.vluver.cbj.colegio.Docente.fragments.HorarioDocenteFrag;
 import com.vluver.cbj.colegio.EstadoSesion;
-import com.vluver.cbj.colegio.Estudiante.EstudianteActivity;
-import com.vluver.cbj.colegio.Estudiante.fragments.ConfiguracionFragment;
+import com.vluver.cbj.colegio.Estudiante.fragments.DocentesFragment;
 import com.vluver.cbj.colegio.MainActivity;
 import com.vluver.cbj.colegio.R;
 
@@ -59,8 +58,8 @@ public class DocenteActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
         DocenteActivity.ViewPagerAdapter adapter = new DocenteActivity.ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HorarioFrag(), "Horario");
-        adapter.addFragment(new ConfiguracionFragment(), "Configuracion");
+        adapter.addFragment(new HorarioDocenteFrag(), "Horario");
+        adapter.addFragment(new DocentesFragment(), "Configuracion");
         viewPager.setAdapter(adapter);
     }
 

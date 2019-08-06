@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.google.android.material.tabs.TabLayout;
 import com.vluver.cbj.colegio.DatabaseHandler;
 import com.vluver.cbj.colegio.EstadoSesion;
-import com.vluver.cbj.colegio.Estudiante.fragments.ConfiguracionFragment;
+import com.vluver.cbj.colegio.Estudiante.fragments.DocentesFragment;
 import com.vluver.cbj.colegio.Estudiante.fragments.HorarioFrag;
 import com.vluver.cbj.colegio.MainActivity;
 import com.vluver.cbj.colegio.R;
@@ -62,7 +62,7 @@ public class EstudianteActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HorarioFrag(), "Horario");
-        adapter.addFragment(new ConfiguracionFragment(), "Configuracion");
+        adapter.addFragment(new DocentesFragment(), "Docentes");
         viewPager.setAdapter(adapter);
     }
 

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vluver.cbj.colegio.DatabaseHandler;
+import com.vluver.cbj.colegio.Docente.Adaptador.HorarioDocenteAdaptador;
 import com.vluver.cbj.colegio.Estudiante.Adaptador.HorarioEstudianteAdaptador;
 import com.vluver.cbj.colegio.R;
 
@@ -22,16 +23,16 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HorarioFrag extends Fragment implements View.OnClickListener{
+public class HorarioDocenteFrag extends Fragment implements View.OnClickListener{
     View view;
     Button lu,ma,mi,ju,vi;
     TextView setDay;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     DatabaseHandler databaseHandler;
-    private HorarioEstudianteAdaptador adapter;
+    private HorarioDocenteAdaptador adapter;
 
-    public HorarioFrag() {
+    public HorarioDocenteFrag() {
         // Required empty public constructor
     }
 
@@ -170,9 +171,32 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     }
 
     void setSchedule(String dia){
+        String diadehoy;
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (day) {
+            case Calendar.MONDAY:
+                diadehoy = "LUNES";
+                break;
+            case Calendar.TUESDAY:
+                diadehoy = "MARTES";
+                break;
+            case Calendar.WEDNESDAY:
+                diadehoy = "MIERCOLES";
+                break;
+            case Calendar.THURSDAY:
+                diadehoy = "JUEVES";
+                break;
+            case Calendar.FRIDAY:
+                diadehoy = "VIERNES";
+                break;
+            default:
+                diadehoy = "NOTHING";
+                break;
+        }
         setDay.setText(dia);
         databaseHandler = new DatabaseHandler(getContext());
-        adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioPorDia(dia), getContext(),"");
+        adapter = new HorarioDocenteAdaptador(databaseHandler.getHorarioDocentePorDia(dia), getContext(),diadehoy);
         recyclerView.setAdapter(adapter);
     }
 

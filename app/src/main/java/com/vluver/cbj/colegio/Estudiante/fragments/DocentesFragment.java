@@ -14,10 +14,10 @@ import com.vluver.cbj.colegio.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConfiguracionFragment extends Fragment {
+public class DocentesFragment extends Fragment {
 
 
-    public ConfiguracionFragment() {
+    public DocentesFragment() {
         // Required empty public constructor
     }
 
