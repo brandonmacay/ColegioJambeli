@@ -23,7 +23,9 @@
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
         <item name="android:tabWidgetStyle">@style/RobotoTabStyle</item>
     </style>
-
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/verde</item>

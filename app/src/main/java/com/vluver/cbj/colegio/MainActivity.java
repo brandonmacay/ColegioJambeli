@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     Button docente,estudiante;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EstadoSesion estadoSesion = new EstadoSesion(this);
