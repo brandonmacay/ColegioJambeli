@@ -2,7 +2,7 @@
     android:shape="rectangle"
     android:padding="90dp">
 
-    <solid android:color="@color/rojo"/>
+    <solid android:color="@color/colorPrimaryDark"/>
 
 
     <corners
