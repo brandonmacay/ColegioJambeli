@@ -14,17 +14,13 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
         <activity
-            android:name=".Docente.DocenteActivity"
-            android:theme="@style/DocenteStyle" />
+            android:name=".Docente.DocenteActivity"/>
         <activity
-            android:name=".Estudiante.EstudianteActivity"
-            android:theme="@style/EstudianteStyle" />
+            android:name=".Estudiante.EstudianteActivity" />
         <activity
-            android:name=".Estudiante.SeleccionCursoActivity"
-            android:theme="@style/EstudianteStyle" />
+            android:name=".Estudiante.SeleccionCursoActivity" />
         <activity
-            android:name=".Docente.SesionDocente"
-            android:theme="@style/DocenteStyle" />
+            android:name=".Docente.SesionDocente" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/SplashTheme"

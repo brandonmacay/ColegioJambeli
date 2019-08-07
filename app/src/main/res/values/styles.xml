@@ -6,13 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/blanco</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="buttonStyle">@style/RobotoButtonStyle</item>
         <item name="android:tabWidgetStyle">@style/RobotoTabStyle</item>
         <item name="android:fontFamily">@font/sanfrancisco</item>
         <item name="fontFamily">@font/sanfrancisco</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     </style>
 
     <style name="DocenteStyle" parent="Theme.AppCompat.Light.NoActionBar">
@@ -28,12 +26,12 @@
     </style>
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/verde</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="TabTextAppearanceDocente" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/rojo</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textStyle">bold</item>
     </style>
 

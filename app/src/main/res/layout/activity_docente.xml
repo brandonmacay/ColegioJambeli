@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Docente.SesionDocente"
-    android:theme="@style/DocenteStyle"
     >
     <include
         android:id="@+id/include"
@@ -44,7 +43,7 @@
         android:padding="15dp"
         android:layout_gravity="center"
         android:background="@drawable/border"
-        android:backgroundTint="@color/rojo"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:textColor="@color/blanco"
         android:textStyle="bold" />
 </LinearLayout>
