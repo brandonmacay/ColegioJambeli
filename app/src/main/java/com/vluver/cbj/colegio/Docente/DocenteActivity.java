@@ -41,7 +41,7 @@ public class DocenteActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if (id == R.id.logout) {
-                    //db.borrarHorarioEstudiante(DocenteActivity.this);
+                    db.borrarHorarioDocente(DocenteActivity.this);
                     estadoSesion.setLoginTeacher(false);
                     startActivity(new Intent(DocenteActivity.this, MainActivity.class));
                     overridePendingTransition(0, 0);
