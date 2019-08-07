@@ -154,12 +154,18 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                                     JSONArray arrayHoraIni = h_JSON.getJSONArray("hora_ini");
                                                     JSONArray arrayHoraFin = h_JSON.getJSONArray("hora_fin");
                                                     JSONArray arrayMateria = h_JSON.getJSONArray("materia");
-
-
                                                     db.insertar_horario_estudiante(arrayDocente.getString(i),arrayDia.getString(i),
                                                             arrayHoraIni.getString(i).substring(0,5),arrayHoraFin.getString(i).substring(0,5),
                                                             arrayMateria.getString(i));
 
+                                                }
+
+                                                JSONObject DPC_JSON = response.getJSONObject("docentes_del_curso");
+                                                JSONArray DPC_horarios = DPC_JSON.getJSONArray("docente");
+                                                for (int i = 0; i < DPC_horarios.length(); i++){
+                                                    JSONArray arrayDocenteDPC = DPC_JSON.getJSONArray("docente");
+                                                    JSONArray arrayMateriaDPC = DPC_JSON.getJSONArray("materias_del_docente");
+                                                    db.insertar_docente_por_curso(arrayDocenteDPC.getString(i),arrayMateriaDPC.getString(i));
                                                 }
                                                 estadoSesion.setLoginStudent(true);
                                                 progressDialog.dismiss();
