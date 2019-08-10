@@ -9,15 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vluver.cbj.colegio.Estudiante.Modelo.HorarioEstudianteModel;
+import com.vluver.cbj.colegio.Estudiante.fragments.HorarioFrag;
 import com.vluver.cbj.colegio.R;
 
 import java.text.ParseException;
@@ -28,6 +33,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
 
+import static com.vluver.cbj.colegio.Estudiante.fragments.HorarioFrag.recyclerView;
+
 public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
     private List<HorarioEstudianteModel> items;
     private Context context;
@@ -35,7 +42,8 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
     String diadelasemana;
-    public HorarioEstudianteAdaptador(List<HorarioEstudianteModel> items, Context context,String diadelasemana) {
+    private int lastPosition = -1;
+    public HorarioEstudianteAdaptador(List<HorarioEstudianteModel> items, Context context, String diadelasemana) {
         this.context = context;
         this.items = items;
         this.diadelasemana=diadelasemana;
@@ -61,14 +69,23 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_horario_estudiante, parent, false);
         return new HorarioHolder(v);
 
     }
-
-    public class HorarioHolder extends RecyclerView.ViewHolder{
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+    class HorarioHolder extends RecyclerView.ViewHolder{
         TextView tiempo,materia;
         ImageView doneicon;
         HorarioHolder(View view){
@@ -104,6 +121,8 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
         ((HorarioHolder) holder).materia.setText(estudianteModel.getMateria());
         ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHoraInicial()+" - "+estudianteModel.getHoraFinal());
         boolean correct = diadelasemana.equals(estudianteModel.getDia());
+        setAnimation(holder.itemView,position);
+
         if (correct) {
             try {
                 String th = sdf.format(cal.getTime());
@@ -113,6 +132,7 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
                 Date horaini =  sdf.parse(hi);
                 Date horafinal = sdf.parse(hf);
                 if (Objects.requireNonNull(horaini).before(tiempoHoy)){
+                    ((HorarioHolder) holder).doneicon.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark));
                     ((HorarioHolder) holder).doneicon.setVisibility(View.VISIBLE);
                 }
 
@@ -120,8 +140,9 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
                     ((HorarioHolder) holder).materia.setSelected(true);
                     ((HorarioHolder) holder).doneicon.setVisibility(View.GONE);
                     ((HorarioHolder) holder).materia.setTextColor(context.getResources().getColor(android.R.color.white));
-                    ((HorarioHolder) holder).tiempo.setTextColor(context.getResources().getColor(R.color.verdeoscuro));
+                    ((HorarioHolder) holder).tiempo.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
                     ((HorarioHolder) holder).tiempo.setTypeface(Typeface.DEFAULT_BOLD);
+                    recyclerView.scrollToPosition(position+1);
                 }
 
             } catch (Exception e) {
@@ -132,4 +153,5 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
         mPreviousPosition = position;
 
     }
+
 }

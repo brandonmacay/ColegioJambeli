@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vluver.cbj.colegio.DatabaseHandler;
 import com.vluver.cbj.colegio.Estudiante.Adaptador.HorarioEstudianteAdaptador;
+import com.vluver.cbj.colegio.Estudiante.Adaptador.MultiViewTypeAdapterListener;
 import com.vluver.cbj.colegio.Estudiante.SeleccionCursoActivity;
 import com.vluver.cbj.colegio.R;
 
@@ -28,12 +29,11 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
     View view;
     Button lu,ma,mi,ju,vi;
     TextView setDay;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager mLayoutManager;
+    public static RecyclerView recyclerView;
+    LinearLayoutManager mLayoutManager;
     DatabaseHandler databaseHandler;
     private HorarioEstudianteAdaptador adapter;
     private int dayOfWeek;
-
     public HorarioFrag() {
         // Required empty public constructor
     }
@@ -201,6 +201,5 @@ public class HorarioFrag extends Fragment implements View.OnClickListener{
         adapter = new HorarioEstudianteAdaptador(databaseHandler.getHorarioEstudiantePorDia(dia), getContext(),diadehoy);
         recyclerView.setAdapter(adapter);
     }
-
 
 }
