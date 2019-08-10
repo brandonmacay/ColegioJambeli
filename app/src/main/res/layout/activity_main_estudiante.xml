@@ -27,6 +27,7 @@
         android:fontFamily="@font/sanfrancisco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#DBDBDB"
         app:tabBackground="@drawable/tab_layout_selector"
         app:tabSelectedTextColor="@color/blanco"
         android:layout_margin="3dp"
