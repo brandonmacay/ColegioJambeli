@@ -70,24 +70,9 @@ public class DocentesPorCurso extends RecyclerView.Adapter {
             super(view);
             tiempo = view.findViewById(R.id.txttiempo);
             materia = view.findViewById(R.id.txtmateria);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showAlertDialogItem();
-                }
-            });
         }
 
-        void showAlertDialogItem(){
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            @SuppressLint("InflateParams") View dialogView = inflater != null ? inflater.inflate(R.layout.dialog_estudiante_item, null) : null;
-            dialogBuilder.setView(dialogView);
-            //EditText editText = (EditText) dialogView.findViewById(R.id.label_field);
-            //editText.setText("test label");
-            AlertDialog alertDialog = dialogBuilder.create();
-            alertDialog.show();
-        }
+
 
     }
 

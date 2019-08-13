@@ -48,5 +48,9 @@
     <style name="RobotoTabStyle" parent="android:Widget.Holo.TabWidget">
         <item name="android:fontFamily">@font/sanfrancisco</item>
     </style>
-
+    <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColorPrimary">#595959</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+    </style>
 </resources>

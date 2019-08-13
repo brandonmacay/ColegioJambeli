@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,19 +97,31 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showAlertDialogItem();
+                    showAlertDialogItem(getAdapterPosition());
                 }
             });
         }
 
-        void showAlertDialogItem(){
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        void showAlertDialogItem(int position){
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context,R.style.AlertDialog);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             @SuppressLint("InflateParams") View dialogView = inflater != null ? inflater.inflate(R.layout.dialog_estudiante_item, null) : null;
             dialogBuilder.setView(dialogView);
+            final HorarioEstudianteModel estudianteModel = items.get(position);
+            TextView txtMateria = (TextView) dialogView.findViewById(R.id.txt_materia);
+            TextView txtDocente = (TextView) dialogView.findViewById(R.id.txt_docente);
+            txtMateria.setText(estudianteModel.getMateria());
+            txtDocente.setText(estudianteModel.getDocente());
             //EditText editText = (EditText) dialogView.findViewById(R.id.label_field);
             //editText.setText("test label");
-            AlertDialog alertDialog = dialogBuilder.create();
+            final AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.setTitle("Informacion");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    alertDialog.hide();
+                }
+            });
             alertDialog.show();
         }
 
