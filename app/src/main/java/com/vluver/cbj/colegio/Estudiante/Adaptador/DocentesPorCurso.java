@@ -29,12 +29,9 @@ public class DocentesPorCurso extends RecyclerView.Adapter {
     private Context context;
     private int mPreviousPosition;
     Calendar cal = Calendar.getInstance();
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-    String diadelasemana;
     public DocentesPorCurso(List<DocentesPorCursoModel> items, Context context) {
         this.context = context;
         this.items = items;
-        this.diadelasemana=diadelasemana;
     }
 
     @Override

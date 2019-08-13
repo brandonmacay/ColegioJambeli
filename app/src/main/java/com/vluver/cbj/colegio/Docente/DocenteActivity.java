@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.vluver.cbj.colegio.DatabaseHandler;
@@ -18,6 +19,7 @@ import com.vluver.cbj.colegio.EstadoSesion;
 import com.vluver.cbj.colegio.Estudiante.fragments.DocentesFragment;
 import com.vluver.cbj.colegio.MainActivity;
 import com.vluver.cbj.colegio.R;
+import com.vluver.cbj.colegio.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class DocenteActivity extends AppCompatActivity {
         estadoSesion = new EstadoSesion(DocenteActivity.this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(""+estadoSesion.getDocente());
-        toolbar.inflateMenu(R.menu.menu_estudiante);
+        toolbar.inflateMenu(R.menu.menu_docente);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -46,6 +48,8 @@ public class DocenteActivity extends AppCompatActivity {
                     startActivity(new Intent(DocenteActivity.this, MainActivity.class));
                     overridePendingTransition(0, 0);
                     finish();
+                }else if (id == R.id.search_bar){
+                    startActivity(new Intent(DocenteActivity.this, SearchActivity.class));
                 }
                 return DocenteActivity.super.onOptionsItemSelected(item);
             }
@@ -59,7 +63,6 @@ public class DocenteActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         DocenteActivity.ViewPagerAdapter adapter = new DocenteActivity.ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HorarioDocenteFrag(), "Horario");
-        adapter.addFragment(new DocentesFragment(), "Configuracion");
         viewPager.setAdapter(adapter);
     }
 

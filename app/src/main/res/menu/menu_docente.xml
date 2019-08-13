@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/logout"
+        android:title="@string/cerrar_sesion"
+        />
+    <item
+        android:title="Buscador"
+        android:icon="@drawable/ic_search"
+        android:id="@+id/search_bar"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.widget.SearchView" />
+</menu>
