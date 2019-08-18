@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "776236489215",
+    "firebase_url": "https://mr-search-cbj.firebaseio.com",
+    "project_id": "mr-search-cbj",
+    "storage_bucket": "mr-search-cbj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776236489215:android:5997d3731200f60d",
+        "android_client_info": {
+          "package_name": "com.vluver.cbj.colegio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776236489215-pmbqvnul6osj6qlo6fqkgq7m7tnpbjpr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vluver.cbj.colegio",
+            "certificate_hash": "9f07d7658aa344897e82df7626370d00c5ff4bde"
+          }
+        },
+        {
+          "client_id": "776236489215-8vpi2dmkr4vib4edc0ck6hvei6u17tkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk5XjMmvEyN4XYyCipm7JkDub9J2GlfcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776236489215-8vpi2dmkr4vib4edc0ck6hvei6u17tkc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

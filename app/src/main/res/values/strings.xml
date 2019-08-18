@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mr. Search CBJ</string>
+    <string name="app_name">Mr Search CBJ</string>
     <string name="docente">Docente</string>
     <string name="iniciar_en_modo">Iniciar en modo:</string>
     <string name="estudiante">Estudiante</string>
@@ -18,4 +18,8 @@
     <string name="jueves">J</string>
     <string name="viernes">V</string>
     <string name="cerrar_sesion">Cerrar sesion</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_noticias">Noticias</string>
+    <string name="title_horario">Horario</string>
+    <string name="title_novedad">Notificaciones</string>
 </resources>

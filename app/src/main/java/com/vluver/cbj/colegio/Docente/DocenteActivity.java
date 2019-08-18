@@ -10,14 +10,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.vluver.cbj.colegio.DatabaseHandler;
 import com.vluver.cbj.colegio.Docente.fragments.HorarioDocenteFrag;
 import com.vluver.cbj.colegio.EstadoSesion;
-import com.vluver.cbj.colegio.Estudiante.fragments.DocentesFragment;
-import com.vluver.cbj.colegio.MainActivity;
+import com.vluver.cbj.colegio.Login;
 import com.vluver.cbj.colegio.R;
 import com.vluver.cbj.colegio.SearchActivity;
 
@@ -45,7 +43,7 @@ public class DocenteActivity extends AppCompatActivity {
                 if (id == R.id.logout) {
                     db.borrarHorarioDocente(DocenteActivity.this);
                     estadoSesion.setLoginTeacher(false);
-                    startActivity(new Intent(DocenteActivity.this, MainActivity.class));
+                    startActivity(new Intent(DocenteActivity.this, Login.class));
                     overridePendingTransition(0, 0);
                     finish();
                 }else if (id == R.id.search_bar){

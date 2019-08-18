@@ -16,7 +16,7 @@ import com.vluver.cbj.colegio.DatabaseHandler;
 import com.vluver.cbj.colegio.EstadoSesion;
 import com.vluver.cbj.colegio.Estudiante.fragments.DocentesFragment;
 import com.vluver.cbj.colegio.Estudiante.fragments.HorarioFrag;
-import com.vluver.cbj.colegio.MainActivity;
+import com.vluver.cbj.colegio.Login;
 import com.vluver.cbj.colegio.R;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class EstudianteActivity extends AppCompatActivity {
                 if (id == R.id.logout) {
                     db.borrarHorarioEstudiante(EstudianteActivity.this);
                     estadoSesion.setLoginStudent(false);
-                    startActivity(new Intent(EstudianteActivity.this, MainActivity.class));
+                    startActivity(new Intent(EstudianteActivity.this, Login.class));
                     overridePendingTransition(0, 0);
                     finish();
                 }

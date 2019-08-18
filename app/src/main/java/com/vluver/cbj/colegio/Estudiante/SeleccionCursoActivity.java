@@ -113,7 +113,7 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        curso_seleccionadoint = i;
+                curso_seleccionadoint = i;
         curso_seleccionado = adapterView.getItemAtPosition(i).toString();
 
     }

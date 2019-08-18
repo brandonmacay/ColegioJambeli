@@ -15,13 +15,21 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".SearchActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppThemeMain"
+            />
+        <activity
+            android:name=".Registrar"
+            android:theme="@style/AppThemeMain" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".Docente.DocenteActivity" />
         <activity android:name=".Estudiante.EstudianteActivity" />
         <activity android:name=".Estudiante.SeleccionCursoActivity" />
         <activity android:name=".Docente.SesionDocente" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,10 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="android.app.searchable"
-            android:resource="@xml/searchable">
-        </meta-data>
+            android:resource="@xml/searchable" />
     </application>
 
 </manifest>
