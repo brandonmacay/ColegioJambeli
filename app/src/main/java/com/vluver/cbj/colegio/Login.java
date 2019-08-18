@@ -182,12 +182,7 @@ public class Login extends AppCompatActivity {
 
 
                     }
-                }).addOnFailureListener(Login.this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
+                });
     }
     @Override
     protected void onStart() {
