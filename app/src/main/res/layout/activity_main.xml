@@ -28,7 +28,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_cbj"
-                    android:padding="5dp"
+                    android:padding="6dp"
                     />
                 <com.mancj.materialsearchbar.MaterialSearchBar
                     android:id="@+id/searchBar"
@@ -36,8 +36,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     app:mt_navIconEnabled="false"
-                    app:mt_menuDividerEnabled="false"
-                    app:mt_dividerColor="@android:color/transparent"
                     app:layout_scrollFlags="scroll|snap|enterAlways"
                     app:mt_placeholder="Buscar docentes..." />
             </LinearLayout>
