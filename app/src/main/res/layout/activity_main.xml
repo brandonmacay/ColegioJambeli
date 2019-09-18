@@ -13,14 +13,42 @@
         android:background="@android:color/transparent"
         app:elevation="0dp"
         >
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/searchBar"
-            style="@style/MaterialSearchBarLight"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:mt_navIconEnabled="false"
-            app:layout_scrollFlags="scroll|snap|enterAlways"
-            app:mt_placeholder="Buscar docentes..." />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/searchBarPrimaryColor"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_cbj"
+                    android:padding="5dp"
+                    />
+                <com.mancj.materialsearchbar.MaterialSearchBar
+                    android:id="@+id/searchBar"
+                    style="@style/MaterialSearchBran"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:mt_navIconEnabled="false"
+                    app:mt_menuDividerEnabled="false"
+                    app:mt_dividerColor="@android:color/transparent"
+                    app:layout_scrollFlags="scroll|snap|enterAlways"
+                    app:mt_placeholder="Buscar docentes..." />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c4c4c4"
+                />
+        </LinearLayout>
+
+
     </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

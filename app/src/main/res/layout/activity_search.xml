@@ -9,7 +9,7 @@
     tools:context=".SearchActivity">
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBarMain"
-        style="@style/MaterialSearchBarLight"
+        style="@style/MaterialSearchBran"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:mt_placeholder="Buscar en Vluver..."

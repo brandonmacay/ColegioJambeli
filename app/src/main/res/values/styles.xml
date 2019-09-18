@@ -13,19 +13,15 @@
         <item name="android:fontFamily">@font/sanfrancisco</item>
         <item name="fontFamily">@font/sanfrancisco</item>
     </style>
-
     <style name="AppThemeMain" parent="AppTheme">
-        <!-- Customize your theme here. -->
         <item name="android:statusBarColor">@color/blanco</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     </style>
-
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:statusBarColor">@color/blanco</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
-
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
@@ -36,8 +32,6 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textStyle">bold</item>
     </style>
-
-
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/sanfrancisco</item>
     </style>
@@ -51,5 +45,19 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textColorPrimary">#595959</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
+    </style>
+    <style name="MaterialSearchBran" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="mt_searchBarColor">@color/searchBarPrimaryColor</item>
+        <item name="mt_dividerColor">@color/searchBarDividerColor</item>
+        <item name="mt_navIconTint">@color/searchBarNavIconTintColor</item>
+        <item name="mt_searchIconTint">@color/searchBarSearchIconTintColor</item>
+        <item name="mt_clearIconTint">@color/searchBarClearIconTintColor</item>
+        <item name="mt_menuIconTint">@color/searchBarMenuIconTintColor</item>
+        <item name="mt_backIconTint">@color/searchBarBackIconTintColor</item>
+        <item name="mt_textCursorTint">@color/searchBarCursorColor</item>
+        <item name="mt_textColor">@color/searchBarTextColor</item>
+        <item name="mt_hintColor">@color/searchBarHintColor</item>
+        <item name="mt_placeholderColor">@color/searchBarPlaceholderColor</item>
+        <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColor</item>
     </style>
 </resources>
