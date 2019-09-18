@@ -20,7 +20,7 @@
             android:layout_height="50dp"
             app:mt_navIconEnabled="false"
             app:layout_scrollFlags="scroll|snap|enterAlways"
-            app:mt_placeholder="Buscar..." />
+            app:mt_placeholder="Buscar docentes..." />
     </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

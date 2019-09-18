@@ -8,15 +8,22 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
-public class SearchActivity extends AppCompatActivity {
+import com.mancj.materialsearchbar.MaterialSearchBar;
 
-    SearchView searchView;
+public class SearchActivity extends AppCompatActivity implements  MaterialSearchBar.OnSearchActionListener{
+
+    MaterialSearchBar searchBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        searchBar = findViewById(R.id.searchBarMain);
+        searchBar.setOnSearchActionListener(this);
+        searchBar.enableSearch();
     }
 
     @Override
@@ -35,5 +42,29 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);*/
         return true;
+    }
+
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+        if (!enabled){
+            finish();
+            overridePendingTransition(0,0);
+        }
+    }
+
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+        Toast.makeText(this, ""+text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onButtonClicked(int buttonCode) {
+        switch (buttonCode) {
+            case MaterialSearchBar.BUTTON_SPEECH:
+                break;
+            case MaterialSearchBar.BUTTON_BACK:
+                finish();
+                break;
+        }
     }
 }
