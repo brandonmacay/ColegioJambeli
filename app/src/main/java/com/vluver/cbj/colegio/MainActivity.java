@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
             int numero = 0;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    searchBar.setPlaceHolder("Buscar en EducarPlus...");
                     mBottomNavigationViewPager.setCurrentItem(0, true);
                     frag = mBottomMenuItemAdapter.getCurrentFragment();
                     fragmentHistory.push(numero);
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
                 overridePendingTransition(0,0);
             }
         });
+        searchBar.setPlaceHolder("Buscar en EducarPlus...");
         searchBar.inflateMenu(R.menu.menu_estudiante);
         searchBar.getMenu().setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
             fragmentHistory.pop();
             switch (position) {
                 case 0:
+                    searchBar.setPlaceHolder("Buscar en EducarPlus...");
                     navView.setSelectedItemId(R.id.navigation_home);
                     break;
                 case 1:
