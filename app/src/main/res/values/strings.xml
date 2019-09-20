@@ -19,6 +19,8 @@
     <string name="viernes">V</string>
     <string name="cerrar_sesion">Cerrar sesion</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_educarplus">Educar Plus</string>
     <string name="title_noticias">Noticias</string>
     <string name="title_horario">Horario</string>
     <string name="title_novedad">Notificaciones</string>

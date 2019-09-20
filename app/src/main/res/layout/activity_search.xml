@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
+    tools:context=".SearchInEducarPlus">
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBarMain"
         style="@style/MaterialSearchBran"
@@ -15,4 +15,8 @@
         app:mt_placeholder="Buscar en Vluver..."
         app:mt_hint="Buscar"
         />
+    <WebView
+        android:id="@+id/visorWeb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

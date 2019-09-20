@@ -1,67 +1,38 @@
-package com.vluver.cbj.colegio.fragments;
+package com.vluver.cbj.colegio;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.android.gms.common.api.Api;
-import com.smarteist.autoimageslider.IndicatorAnimations;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
-import com.vluver.cbj.colegio.Adaptador.SliderAdapterExample;
-import com.vluver.cbj.colegio.MainActivity;
-import com.vluver.cbj.colegio.R;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class NoticiasFragment extends Fragment {
+public class SearchInEducarPlus extends AppCompatActivity implements  MaterialSearchBar.OnSearchActionListener{
 
-    View view;
-    String url = "https://educarplus.com";
+    MaterialSearchBar searchBar;
+    String url = "https://educarplus.com/?s=";
     WebView miVisorWeb;
-    public NoticiasFragment() {
-        // Required empty public constructor
-    }
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_noticias, container, false);
-        SliderView sliderView = view.findViewById(R.id.imageSlider);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
+        searchBar = findViewById(R.id.searchBarMain);
+        searchBar.setOnSearchActionListener(this);
+        searchBar.enableSearch();
 
-        SliderAdapterExample adapter = new SliderAdapterExample(getContext());
-
-        sliderView.setSliderAdapter(adapter);
-
-        sliderView.setIndicatorAnimation(IndicatorAnimations.THIN_WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        sliderView.setIndicatorSelectedColor(Color.WHITE);
-        sliderView.setIndicatorUnselectedColor(Color.GRAY);
-        sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
-        sliderView.startAutoCycle();
-        miVisorWeb = (WebView) view.findViewById(R.id.visorWeb);
+        miVisorWeb = (WebView) findViewById(R.id.visorWeb);
 
         final WebSettings ajustesVisorWeb = miVisorWeb.getSettings();
         ajustesVisorWeb.setJavaScriptEnabled(true);
@@ -85,13 +56,51 @@ public class NoticiasFragment extends Fragment {
         ajustesVisorWeb.setSavePassword(true);
         ajustesVisorWeb.setSaveFormData(true);
         ajustesVisorWeb.setEnableSmoothTransition(true);
-
         //force links open in webview only
         miVisorWeb.setWebViewClient(new MyWebviewClient());
-        miVisorWeb.loadUrl(url);
-        return view;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /*
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_menu, menu);
+
+        SearchManager searchManager = (SearchManager)
+                getSystemService(Context.SEARCH_SERVICE);
+        searchMenuItem = menu.findItem(R.id.search);
+        searchView = (SearchView) searchMenuItem.getActionView();
+
+        searchView.setSearchableInfo(searchManager.
+                getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);*/
+        return true;
+    }
+
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+        if (!enabled){
+            finish();
+            overridePendingTransition(0,0);
+        }
+    }
+
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+        miVisorWeb.loadUrl(url+text.toString().replaceAll("\\s+","+"));
+    }
+
+    @Override
+    public void onButtonClicked(int buttonCode) {
+        switch (buttonCode) {
+            case MaterialSearchBar.BUTTON_SPEECH:
+                break;
+            case MaterialSearchBar.BUTTON_BACK:
+                finish();
+                break;
+        }
+    }
     private class MyWebviewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -113,24 +122,21 @@ public class NoticiasFragment extends Fragment {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            pd=new ProgressDialog(getContext());
-            pd.setTitle("Educar Plus");
+            pd=new ProgressDialog(SearchInEducarPlus.this);
             pd.setMessage("Cargando...");
-            pd.setCancelable(false);    
             pd.show();
-
+            pd.setCancelable(false);
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             super.onPageStarted(view, url, favicon);
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             pd.dismiss();
+
             super.onPageFinished(view, url);
         }
 
     }
-
-    //goto previous page when pressing back button
-
-
 }

@@ -182,7 +182,12 @@ public class Login extends AppCompatActivity {
 
 
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Login.this, ""+e, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     protected void onStart() {

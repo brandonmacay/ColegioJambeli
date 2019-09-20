@@ -23,7 +23,7 @@
         <activity
             android:name=".Registrar"
             android:theme="@style/AppThemeMain" />
-        <activity android:name=".SearchActivity"
+        <activity android:name=".SearchInEducarPlus"
             android:theme="@style/AppThemeMain"
 
             />

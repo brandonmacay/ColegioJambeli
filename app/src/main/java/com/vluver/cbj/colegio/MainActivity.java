@@ -15,11 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import java.io.File;
 
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                Intent intent = new Intent(MainActivity.this, SearchInEducarPlus.class);
                 startActivity(intent);
                 overridePendingTransition(0,0);
             }

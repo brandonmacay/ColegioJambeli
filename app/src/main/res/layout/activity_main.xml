@@ -27,16 +27,16 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_cbj"
-                    android:padding="6dp"
+                    android:src="@mipmap/ic_launcher_foreground"
                     />
+
                 <com.mancj.materialsearchbar.MaterialSearchBar
                     android:id="@+id/searchBar"
                     style="@style/MaterialSearchBran"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:mt_navIconEnabled="false"
                     app:layout_scrollFlags="scroll|snap|enterAlways"
+                    app:mt_navIconEnabled="false"
                     app:mt_placeholder="Buscar docentes..." />
             </LinearLayout>
             <View

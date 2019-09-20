@@ -17,7 +17,7 @@ import com.vluver.cbj.colegio.Docente.fragments.HorarioDocenteFrag;
 import com.vluver.cbj.colegio.EstadoSesion;
 import com.vluver.cbj.colegio.Login;
 import com.vluver.cbj.colegio.R;
-import com.vluver.cbj.colegio.SearchActivity;
+import com.vluver.cbj.colegio.SearchInEducarPlus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class DocenteActivity extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                     finish();
                 }else if (id == R.id.search_bar){
-                    startActivity(new Intent(DocenteActivity.this, SearchActivity.class));
+                    startActivity(new Intent(DocenteActivity.this, SearchInEducarPlus.class));
                 }
                 return DocenteActivity.super.onOptionsItemSelected(item);
             }
