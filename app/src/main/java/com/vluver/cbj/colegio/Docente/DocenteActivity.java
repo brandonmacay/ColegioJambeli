@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import com.google.android.material.tabs.TabLayout;
 import com.vluver.cbj.colegio.DatabaseHandler;
 import com.vluver.cbj.colegio.Docente.fragments.HorarioDocenteFrag;
-import com.vluver.cbj.colegio.EstadoSesion;
 import com.vluver.cbj.colegio.Login;
 import com.vluver.cbj.colegio.R;
 import com.vluver.cbj.colegio.SearchInEducarPlus;
@@ -25,15 +24,15 @@ import java.util.List;
 public class DocenteActivity extends AppCompatActivity {
     private String curso= null;
     DatabaseHandler db;
-    EstadoSesion estadoSesion;
+    //EstadoSesion estadoSesion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_docente_main);
         db = new DatabaseHandler (this);
-        estadoSesion = new EstadoSesion(DocenteActivity.this);
+        //estadoSesion = new EstadoSesion(DocenteActivity.this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(""+estadoSesion.getDocente());
+        //toolbar.setTitle(""+estadoSesion.getDocente());
         toolbar.inflateMenu(R.menu.menu_docente);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -42,7 +41,7 @@ public class DocenteActivity extends AppCompatActivity {
 
                 if (id == R.id.logout) {
                     db.borrarHorarioDocente(DocenteActivity.this);
-                    estadoSesion.setLoginTeacher(false);
+                    //estadoSesion.setLoginTeacher(false);
                     startActivity(new Intent(DocenteActivity.this, Login.class));
                     overridePendingTransition(0, 0);
                     finish();

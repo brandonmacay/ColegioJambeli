@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <com.google.android.material.appbar.AppBarLayout
+        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -29,7 +30,19 @@
                     android:layout_height="50dp"
                     android:src="@mipmap/ic_launcher_foreground"
                     />
+                <TextView
+                    android:id="@+id/txttitulo"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:text="Novedades"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:paddingEnd="50dp"
+                    android:layout_height="wrap_content"
+                    tools:ignore="RtlSymmetry">
 
+                </TextView>
                 <com.mancj.materialsearchbar.MaterialSearchBar
                     android:id="@+id/searchBar"
                     style="@style/MaterialSearchBran"

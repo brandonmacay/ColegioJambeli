@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.vluver.cbj.colegio.Estudiante.EstudianteActivity;
 import com.vluver.cbj.colegio.utilidades.FragmentHistory;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -26,8 +29,12 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
     public static BottomMenuItemAdapter mBottomMenuItemAdapter;
     private FragmentHistory fragmentHistory;
     private FirebaseAuth mAuth;
+    DatabaseHandler db;
     Fragment frag;
     BottomNavigationView navView;
+    DataUser dataUser;
+    TextView titulo;
+    int s =0;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -35,23 +42,49 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             int numero = 0;
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    searchBar.setPlaceHolder("Buscar en EducarPlus...");
+                case R.id.navigation_inicio:
+                    titulo.setVisibility(View.GONE);
+                    searchBar.setVisibility(View.VISIBLE);
+                    searchBar.setPlaceHolder("Buscar personas...");
                     mBottomNavigationViewPager.setCurrentItem(0, true);
                     frag = mBottomMenuItemAdapter.getCurrentFragment();
                     fragmentHistory.push(numero);
+                    s = numero;
                     return true;
-                case R.id.navigation_dashboard:
+
+                case R.id.navigation_home:
                     numero = 1;
+                    titulo.setVisibility(View.GONE);
+                    searchBar.setVisibility(View.VISIBLE);
+                    searchBar.setPlaceHolder("Buscar en EducarPlus...");
                     mBottomNavigationViewPager.setCurrentItem(1, true);
                     frag = mBottomMenuItemAdapter.getCurrentFragment();
                     fragmentHistory.push(numero);
+                    s = numero;
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_dashboard:
                     numero = 2;
+                    titulo.setVisibility(View.VISIBLE);
+                    if (dataUser.getTipodeusuario().equals("1")){
+                        titulo.setText("Horario de " + dataUser.getCurso());
+                    }else{
+                        titulo.setText("Horario de " + dataUser.getNombres());
+                    }
+                    searchBar.setVisibility(View.GONE);
                     mBottomNavigationViewPager.setCurrentItem(2, true);
                     frag = mBottomMenuItemAdapter.getCurrentFragment();
                     fragmentHistory.push(numero);
+                    s = numero;
+                    return true;
+                case R.id.navigation_notifications:
+                    titulo.setVisibility(View.VISIBLE);
+                    titulo.setText("Novedades");
+                    searchBar.setVisibility(View.GONE);
+                    numero = 3;
+                    mBottomNavigationViewPager.setCurrentItem(3, true);
+                    frag = mBottomMenuItemAdapter.getCurrentFragment();
+                    fragmentHistory.push(numero);
+                    s = numero;
                     return true;
             }
             return true;
@@ -63,19 +96,29 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        titulo = (TextView) findViewById(R.id.txttitulo);
         navView = findViewById(R.id.nav_view);
+        db = new DatabaseHandler (this);
+        dataUser = new DataUser(this);
         searchBar = findViewById(R.id.searchBar);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         searchBar.setOnSearchActionListener(this);
         searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchInEducarPlus.class);
-                startActivity(intent);
-                overridePendingTransition(0,0);
+                if (s == 0){
+                    Intent intento = new Intent(MainActivity.this,SearchPerson.class);
+                    startActivity(intento);
+                    overridePendingTransition(0,0);
+                }else if (s == 1){
+                    Intent intent = new Intent(MainActivity.this, SearchInEducarPlus.class);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
+                }
+
             }
         });
-        searchBar.setPlaceHolder("Buscar en EducarPlus...");
+        searchBar.setPlaceHolder("Buscar personas...");
         searchBar.inflateMenu(R.menu.menu_estudiante);
         searchBar.getMenu().setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -95,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
         mBottomNavigationViewPager.setPagingEnable(false);
         frag = mBottomMenuItemAdapter.getCurrentFragment();
         fragmentHistory.push(0);
-        mBottomNavigationViewPager.setOffscreenPageLimit(3);
+        mBottomNavigationViewPager.setOffscreenPageLimit(4);
     }
     @Override
     public void onSearchStateChanged(boolean enabled) {
@@ -113,17 +156,21 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
             fragmentHistory.pop();
             switch (position) {
                 case 0:
+                    searchBar.setPlaceHolder("Buscar personas...");
+                    navView.setSelectedItemId(R.id.navigation_inicio);
+                    break;
+                case 1:
                     searchBar.setPlaceHolder("Buscar en EducarPlus...");
                     navView.setSelectedItemId(R.id.navigation_home);
                     break;
-                case 1:
+                case 2:
                     navView.setSelectedItemId(R.id.navigation_dashboard);
                     break;
-                case 2:
+                case 3:
                     navView.setSelectedItemId(R.id.navigation_notifications);
                     break;
                 default:
-                    navView.setSelectedItemId(R.id.navigation_home);
+                    navView.setSelectedItemId(R.id.navigation_inicio);
                     break;
             }
         }else{
@@ -147,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
     }
 
     public void logout(){
+        db.borrarHorarioEstudiante(MainActivity.this);
+        db.borrarHorarioDocente(MainActivity.this);
         FirebaseAuth.getInstance().signOut();
         deleteCache(this);
         salir();

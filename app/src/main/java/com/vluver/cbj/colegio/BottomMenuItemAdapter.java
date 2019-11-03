@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.vluver.cbj.colegio.fragments.EducarPlusFragment;
 import com.vluver.cbj.colegio.fragments.HorarioFragment;
 import com.vluver.cbj.colegio.fragments.NoticiasFragment;
 import com.vluver.cbj.colegio.fragments.NotificacionesFragment;
@@ -23,8 +24,8 @@ public class BottomMenuItemAdapter extends FragmentPagerAdapter {
 
     public BottomMenuItemAdapter(FragmentManager fm) {
         super(fm);
-
         fragments.add(new NoticiasFragment());
+        fragments.add(new EducarPlusFragment());
         fragments.add(new HorarioFragment());
         fragments.add(new NotificacionesFragment());
 

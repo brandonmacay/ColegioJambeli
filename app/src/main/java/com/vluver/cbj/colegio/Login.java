@@ -13,6 +13,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -20,8 +29,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
-import com.vluver.cbj.colegio.Docente.DocenteActivity;
-import com.vluver.cbj.colegio.Estudiante.EstudianteActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
@@ -32,6 +43,7 @@ public class Login extends AppCompatActivity {
     TextView registrar,recuperarclave;
     private FirebaseAuth mAuth;
     private RelativeLayout divError;
+    DataUser dataUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppThemeMain);
@@ -44,18 +56,8 @@ public class Login extends AppCompatActivity {
         cla = findViewById(R.id.clave);
         iniciar = findViewById(R.id.btn_login);
         registrar = findViewById(R.id.txtRegistrar);
-        EstadoSesion estadoSesion = new EstadoSesion(this);
-        if (estadoSesion.isLoggedInStudent()) {
+        dataUser = new DataUser(this);
 
-            Intent intent = new Intent(Login.this, EstudianteActivity.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        }else if (estadoSesion.isLoggedInTeacher()){
-            Intent intent = new Intent(Login.this, DocenteActivity.class);
-            startActivity(intent);
-            finish();
-        }
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,8 +103,7 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithEmail:success");
                             // FirebaseUser user = mAuth.getCurrentUser();
-                            progreso.dismiss();
-                            updateUI();
+                            getUser(mAuth.getUid());
 
 
                         } else {
@@ -196,6 +197,183 @@ public class Login extends AppCompatActivity {
         if (currentUser != null){
             updateUI();
         }
+    }
+
+    private void getUser(String uid){
+        String url = "http://mrsearch.000webhostapp.com/apirestAndroid/get/getUser.php?uid="+uid;
+        VolleySingleton.getInstance(Login.this).addToRequestQueue(new JsonObjectRequest(
+                Request.Method.GET, url, (JSONObject) null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean error = response.getBoolean("error");
+                            if (!error) {
+                                JSONObject user_JSON = response.getJSONObject("user");
+                                dataUser.setNombres(user_JSON.getString("nombres"));
+                                dataUser.setCorreo(user_JSON.getString("correo"));
+                                dataUser.setTipodeusuario(user_JSON.getString("tipo de usuario"));
+                                dataUser.setCedula(user_JSON.getString("cedula"));
+                                dataUser.setCurso(user_JSON.getString("curso"));
+                                dataUser.setCursoid(user_JSON.getString("curso_id"));
+                                dataUser.setGenero(user_JSON.getString("genero"));
+                                dataUser.setFechanacimiento(user_JSON.getString("fecha nacimiento"));
+                                dataUser.setCiudad(user_JSON.getString("ciudad"));
+                                dataUser.setNombreusuario(user_JSON.getString("nombre de usuario"));
+
+                                if (dataUser.getTipodeusuario().equals("1")){
+                                    saveInDB(dataUser.getCURSOID());
+                                }else {
+                                    saveInDBdocente(dataUser.getCedula());
+
+                                }
+                            } else {
+                                progreso.dismiss();
+                                String errorMsg = response.getString("error_msg");
+                                Toast.makeText(Login.this, errorMsg, Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            progreso.dismiss();
+                            Toast.makeText(Login.this, "" + e, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progreso.dismiss();
+                        checkerror(error);
+                    }
+                }
+        ));
+    }
+
+    private void checkerror(VolleyError error){
+        if( error instanceof NetworkError) {
+            Toast.makeText(Login.this, "Sin  coneccion a internet", Toast.LENGTH_SHORT).show();
+        } else if( error instanceof ServerError) {
+            Toast.makeText(Login.this, "Servidores fallando", Toast.LENGTH_LONG).show();
+        } else if( error instanceof AuthFailureError) {
+            Toast.makeText(Login.this, "Error 404", Toast.LENGTH_LONG).show();
+        } else if( error instanceof ParseError) {
+            Toast.makeText(Login.this, "Error al parsear datos...", Toast.LENGTH_LONG).show();
+        } else if( error instanceof TimeoutError) {
+            Toast.makeText(Login.this, "Tiempo agotado!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void saveInDB(String idcurso){
+        String url = "http://mrsearch.000webhostapp.com/apirestAndroid/get/get_schedule.php?course_id="+idcurso;
+        VolleySingleton.getInstance(Login.this).addToRequestQueue(new JsonObjectRequest(
+                Request.Method.GET, url, (JSONObject) null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean error = response.getBoolean("error");
+                            if (!error){
+                                DatabaseHandler db = new DatabaseHandler (Login.this);
+                                JSONObject h_JSON = response.getJSONObject("horario");
+                                JSONArray horarios = h_JSON.getJSONArray("dia");
+                                for (int i = 0; i < horarios.length(); i++){
+                                    JSONArray arrayDocente = h_JSON.getJSONArray("docente");
+                                    JSONArray arrayDia = h_JSON.getJSONArray("dia");
+                                    //Toast.makeText(getContext(), ""+hours+":"+minutes, Toast.LENGTH_SHORT).show();
+                                    JSONArray arrayHoraIni = h_JSON.getJSONArray("hora_ini");
+                                    JSONArray arrayHoraFin = h_JSON.getJSONArray("hora_fin");
+                                    JSONArray arrayMateria = h_JSON.getJSONArray("materia");
+                                    db.insertar_horario_estudiante(arrayDocente.getString(i),arrayDia.getString(i),
+                                            arrayHoraIni.getString(i).substring(0,5),arrayHoraFin.getString(i).substring(0,5),
+                                            arrayMateria.getString(i));
+
+                                }
+                                progreso.dismiss();
+                                updateUI();
+                                /*
+                                JSONObject DPC_JSON = response.getJSONObject("docentes_del_curso");
+                                JSONArray DPC_horarios = DPC_JSON.getJSONArray("docente");
+                                for (int i = 0; i < DPC_horarios.length(); i++){
+                                    JSONArray arrayDocenteDPC = DPC_JSON.getJSONArray("docente");
+                                    JSONArray arrayMateriaDPC = DPC_JSON.getJSONArray("materias_del_docente");
+                                    db.insertar_docente_por_curso(arrayDocenteDPC.getString(i),arrayMateriaDPC.getString(i));
+                                }
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(Login.this, EstudianteActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);*/
+                            }else{
+                                progreso.dismiss();
+                                String errorMsg = response.getString("error_msg");
+                                Toast.makeText(Login.this, errorMsg, Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            progreso.dismiss();
+                            Toast.makeText(Login.this, ""+e, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progreso.dismiss();
+                        checkerror(error);
+                    }
+                }
+        ));
+    }
+
+    private void saveInDBdocente(String cedula){
+        String url = "http://mrsearch.000webhostapp.com/apirestAndroid/get/get_schedule_teacher.php?number_cedula="+cedula;
+        VolleySingleton.getInstance(Login.this).addToRequestQueue(new JsonObjectRequest(
+                Request.Method.GET, url, (JSONObject) null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean error = response.getBoolean("error");
+                            if (!error){
+                                DatabaseHandler db = new DatabaseHandler (Login.this);
+                                JSONObject h_JSON = response.getJSONObject("horario");
+                                JSONArray horarios = h_JSON.getJSONArray("dia");
+                                for (int i = 0; i < horarios.length(); i++){
+                                    JSONArray arrayCursos = h_JSON.getJSONArray("curso");
+                                    JSONArray arrayDia = h_JSON.getJSONArray("dia");
+                                    JSONArray arrayHoraIni = h_JSON.getJSONArray("hora_ini");
+                                    JSONArray arrayHoraFin = h_JSON.getJSONArray("hora_fin");
+                                    JSONArray arrayMateria = h_JSON.getJSONArray("materia");
+                                    db.insertar_horario_docente(arrayCursos.getString(i),arrayDia.getString(i),
+                                            arrayHoraIni.getString(i).substring(0,5),arrayHoraFin.getString(i).substring(0,5),
+                                            arrayMateria.getString(i));
+
+                                }
+                                //estadoSesion.setLoginTeacher(true);
+                                progreso.dismiss();
+                                updateUI();
+                            }else{
+                                progreso.dismiss();
+                                String errorMsg = response.getString("error_msg");
+                                Toast.makeText(Login.this, errorMsg, Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            progreso.dismiss();
+                            Toast.makeText(Login.this, ""+e, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progreso.dismiss();
+                        checkerror(error);
+                    }
+                }
+        ));
     }
     private void updateUI(){
         Intent intent = new Intent(Login.this, MainActivity.class);

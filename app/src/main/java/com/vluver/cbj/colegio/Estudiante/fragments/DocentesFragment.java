@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vluver.cbj.colegio.DatabaseHandler;
-import com.vluver.cbj.colegio.EstadoSesion;
 import com.vluver.cbj.colegio.Estudiante.Adaptador.DocentesPorCurso;
 import com.vluver.cbj.colegio.Estudiante.Adaptador.HorarioEstudianteAdaptador;
 import com.vluver.cbj.colegio.R;
@@ -36,7 +35,7 @@ public class DocentesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_docente_en_estudiantes, container, false);
-        EstadoSesion estadoSesion = new EstadoSesion(getContext());
+        //EstadoSesion estadoSesion = new EstadoSesion(getContext());
 
         recyclerView = view.findViewById(R.id.recyclerde);
         recyclerView.setHasFixedSize(true);

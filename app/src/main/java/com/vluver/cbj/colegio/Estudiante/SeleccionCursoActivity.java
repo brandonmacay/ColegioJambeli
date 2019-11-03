@@ -24,7 +24,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vluver.cbj.colegio.DatabaseHandler;
-import com.vluver.cbj.colegio.EstadoSesion;
 import com.vluver.cbj.colegio.R;
 import com.vluver.cbj.colegio.VolleySingleton;
 
@@ -44,14 +43,14 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
     int curso_seleccionadoint;
     String curso_seleccionado;
     ProgressDialog progressDialog;
-    EstadoSesion estadoSesion;
+    //EstadoSesion estadoSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estudiante);
         progressDialog = new ProgressDialog(this);
-        estadoSesion = new EstadoSesion(this);
+        // = new EstadoSesion(this);
         toolbar =  findViewById(R.id.toolbar);
         toolbar.setTitle("Estudiante");
         setSupportActionBar(toolbar);
@@ -167,10 +166,10 @@ public class SeleccionCursoActivity extends AppCompatActivity implements Adapter
                                                     JSONArray arrayMateriaDPC = DPC_JSON.getJSONArray("materias_del_docente");
                                                     db.insertar_docente_por_curso(arrayDocenteDPC.getString(i),arrayMateriaDPC.getString(i));
                                                 }
-                                                estadoSesion.setLoginStudent(true);
+                                                //estadoSesion.setLoginStudent(true);
                                                 progressDialog.dismiss();
                                                 Intent intent = new Intent(SeleccionCursoActivity.this, EstudianteActivity.class);
-                                                estadoSesion.setCourseStudent(curso_seleccionado);
+                                                //estadoSesion.setCourseStudent(curso_seleccionado);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
                                             }else{

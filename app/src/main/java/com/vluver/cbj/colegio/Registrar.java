@@ -6,21 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Fade;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -30,7 +26,6 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,22 +33,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.vluver.cbj.colegio.Docente.DocenteActivity;
-import com.vluver.cbj.colegio.Docente.SesionDocente;
-import com.vluver.cbj.colegio.Estudiante.SeleccionCursoActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Registrar extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText correo,clave,nombres,cedula;
     Button registro;
-    int curso_seleccionadoint;
+    int curso_seleccionadoint =0;
     private FirebaseAuth mAuth;
     ProgressDialog progressDialog;
     RequestQueue mQueue;
@@ -176,10 +165,12 @@ public class Registrar extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     private void register_user_firebase (String mEmail, String mPassword, final int genero_xd,final int tipodeusuario) {
+
         progressDialog.setMessage("Registrando...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
         progressDialog.show();
+
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(Registrar.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -191,21 +182,26 @@ public class Registrar extends AppCompatActivity implements AdapterView.OnItemSe
                             final FirebaseUser user = mAuth.getCurrentUser();
 
                             if (user != null) {
-
+                                String numcedula ;
+                                if (cedula.getText().toString().isEmpty()){
+                                    numcedula = "0";
+                                }else{
+                                    numcedula = cedula.getText().toString();
+                                }
+                        /*Toast.makeText(Registrar.this, "UID: "+user.getUid()+"  Nombres: " + nombres.getText().toString()+
+                                "   Email: " + user.getEmail()+
+                                "   tipo usuario: " +tipodeusuario+
+                                "   curso: " +curso_seleccionadoint+
+                                "   genero: " +genero_xd+
+                                "   cedula: "+numcedula, Toast.LENGTH_SHORT).show();*/
+                                registerUserToDB(user.getUid(),user.getEmail(),nombres.getText().toString(),tipodeusuario,numcedula,curso_seleccionadoint,genero_xd);
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(nombres.getText().toString())
                                         //.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
                                         .build();
                                 user.sendEmailVerification();
-                                user.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    registerUserToDB(user.getUid(),user.getEmail(),nombres.getText().toString(),tipodeusuario,cedula.getText().toString(),curso_seleccionadoint,genero_xd);
-                                                }
-                                            }
-                                        });
+                                user.updateProfile(profileUpdates);
+
                             }
 
 
@@ -228,57 +224,44 @@ public class Registrar extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
-    private void registerUserToDB(final String uid, final String email, final String names, final int tipo_usuario,
-                                  final String num_cedula, final int curso, final int gender){
-        String url = "http://jambeli.hostingerapp.com/apirestAndroid/register.php";
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                url, new Response.Listener<String>(){
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean error = jsonObject.getBoolean("error");
-                    if (!error){
-                        progressDialog.dismiss();
-                        Intent intent = new Intent(Registrar.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }else{
-                        progressDialog.dismiss();
-                        String errorMsg = jsonObject.getString("error_msg");
-                        Toast.makeText(Registrar.this, errorMsg, Toast.LENGTH_LONG).show();
+    private void registerUserToDB(String uid,String email,String names,int tipo_usuario,String num_cedula,int curso,int gender){
+        String url = "https://mrsearch.000webhostapp.com/apirestAndroid/registro.php?uid="+uid+"&email="+email
+                +"&names="+names+"&tipo_usuario="+tipo_usuario
+                +"&gender="+gender+"&num_cedula="+num_cedula+"&curso="+curso;
+        VolleySingleton.getInstance(Registrar.this).addToRequestQueue(new JsonObjectRequest(
+                Request.Method.GET, url, (JSONObject) null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean error = response.getBoolean("error");
+                            if (!error) {
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(Registrar.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            } else {
+                                progressDialog.dismiss();
+                                String errorMsg = response.getString("error_msg");
+                                Toast.makeText(Registrar.this, errorMsg, Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(Registrar.this, "" + e, Toast.LENGTH_SHORT).show();
+                        }
                     }
-
-                } catch (JSONException e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(Registrar.this, ""+e, Toast.LENGTH_SHORT).show();
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        checkerror(error);
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
+        ));
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                checkerror(error);
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("uid", uid);
-                params.put("email",email);
-                params.put("names",names);
-                params.put("tipo_usuario", String.valueOf(tipo_usuario));
-                params.put("gender", String.valueOf(gender));
-                params.put("num_cedula",num_cedula);
-                params.put("curso", String.valueOf(curso));
-                return params;
-            }
-
-        };
-        strReq.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        mQueue.add(strReq);
     }
     private void checkerror(VolleyError error){
         if( error instanceof NetworkError) {

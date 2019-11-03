@@ -23,5 +23,8 @@
     <string name="title_educarplus">Educar Plus</string>
     <string name="title_noticias">Noticias</string>
     <string name="title_horario">Horario</string>
-    <string name="title_novedad">Notificaciones</string>
+    <string name="title_novedad">Novedades</string>
+    <string name="title_inicio">Inicio</string>
+    <string name="title_activity_post">PostActivity</string>
+
 </resources>
