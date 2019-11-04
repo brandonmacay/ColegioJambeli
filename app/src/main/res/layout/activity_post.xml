@@ -36,10 +36,11 @@
                 android:padding="15dp"
                 />
         </LinearLayout>
+
         <androidx.core.widget.NestedScrollView
-            android:layout_above="@+id/ns"
             android:layout_width="match_parent"
             android:scrollbars="vertical"
+            android:id="@+id/ns"
             android:layout_marginTop="52dp"
             android:layout_height="match_parent">
 
@@ -53,7 +54,8 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_gravity="start"
-                    android:padding="5dp"
+                    android:padding="10dp"
+                    android:layout_margin="5dp"
                     android:src="@mipmap/ic_launcher_round"
                     />
 
@@ -64,7 +66,7 @@
                     <EditText
                         android:id="@+id/descripcion"
                         android:layout_width="match_parent"
-                        android:hint="Describe como fue tu dia..."
+                        android:hint="Escribe algo para tu comunidad CBJ"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:textSize="18sp"
@@ -72,15 +74,9 @@
                         android:textColor="@color/backroudnrecyclerview"
                         android:scrollbars="vertical"
                         android:padding="14dp"
-                        android:inputType="textCapSentences|text"
                         android:layout_height="match_parent"
-                        android:autofillHints="" />
-                    <ImageView
-                        android:id="@+id/new_post_picture"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        />
+                         />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/multimages"
                         android:layout_width="match_parent"
@@ -90,40 +86,34 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/ns"
-            android:background="#F4F4F4"
-            android:layout_width="match_parent"
-            android:scrollbars="horizontal"
+        <LinearLayout
             android:foregroundGravity="bottom"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true">
-            <LinearLayout
-                android:id="@+id/new_post_submit"
-                android:background="#F4F4F4"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_add_a_photo_black_24dp"
-                    android:tint="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:padding="13dp"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Seleccionar imagenes"
-                    android:gravity="center|start"
-                    android:textColor="@color/colorPrimary"
-                    />
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+            android:layout_alignParentLeft="true"
+            tools:ignore="RtlHardcoded"
+            android:id="@+id/new_post_submit"
+            android:background="#F4F4F4"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_above="@+id/ns"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_add_a_photo_black_24dp"
+                android:tint="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:padding="13dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar imagenes"
+                android:gravity="center|start"
+                android:textColor="@color/colorPrimary"
+                />
+        </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

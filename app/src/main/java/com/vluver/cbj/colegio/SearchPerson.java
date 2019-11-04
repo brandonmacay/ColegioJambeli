@@ -50,13 +50,7 @@ public class SearchPerson extends AppCompatActivity implements  MaterialSearchBa
         searchBar.addTextChangeListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchUser(charSequence.toString());
-                if (charSequence.toString().isEmpty()){
-                    if (data != null){
-                        data.clear();
-                        mAdapter.clear();
-                    }
-                }
+
             }
 
             @Override
@@ -150,7 +144,7 @@ public class SearchPerson extends AppCompatActivity implements  MaterialSearchBa
 
                     SearchUser userData = new SearchUser();
 
-                    userData.userName = fullnames;
+                    userData.setUserName(fullnames);
                     data.add(userData);
                 }
 

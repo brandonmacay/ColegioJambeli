@@ -48,11 +48,11 @@ public class SearchUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // Get current position of item in RecyclerView to bind data and assign values from list
         MyHolder myHolder= (MyHolder) holder;
         SearchUser current=data.get(position);
-        myHolder.textUserName.setText(current.userName);
+        myHolder.textUserName.setText(current.getUserName());
 
-        myHolder.textUserEmail.setText(current.userEmail);
+        myHolder.textUserEmail.setText(current.getUserEmail());
 
-        GlideLoadImages.loadAvatar(context,current.userAvatar,myHolder.imageUserAvatar);
+        GlideLoadImages.loadAvatar(context, current.getUserAvatar(),myHolder.imageUserAvatar);
 
     }
 
