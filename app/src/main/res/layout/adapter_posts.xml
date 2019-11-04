@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="20dp"
@@ -35,26 +36,58 @@
                     android:paddingHorizontal="8dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/nombres"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="clip_vertical"
-                        android:text="sadasdasdad"
-                        android:textColor="#616161"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:typeface="sans" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/nombres"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="clip_vertical"
+                            android:text="sadasdasdad"
+                            android:textColor="#292929"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:typeface="sans" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="clip_vertical"
+                            android:text="   -   Estudiante"
+                            android:textSize="11sp"
+                            android:textColor="@color/colorPrimary"
+                            />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textView10"
+
+
+                    <LinearLayout
+                        android:layout_marginVertical="2dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:textColor="#616161"
-                        android:textSize="10.5sp" />
+                        android:orientation="horizontal"
+                        tools:targetApi="o">
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_horario"
+                            />
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:textColor="#616161"
+                            android:text="5 min"
+                            android:textSize="10.5sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
                 <ImageButton
+                    android:visibility="invisible"
                     android:id="@+id/options"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,38 +148,25 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginVertical="15dp"
                 android:textColor="@color/backroudnrecyclerview"
-                android:textSize="17sp" />
-            <Button
-                android:id="@+id/view_moretxt"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginLeft="6dp"
-                android:text="Saber mas"
-                android:textColor="#6041d1"
-                android:background="@android:color/transparent"
-                android:layout_marginStart="6dp" />
+                android:textSize="14sp"
+                />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 >
-
                 <TextView
                     android:id="@+id/likes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/negro"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:text="13k likes"
+                    android:text="0"
                     android:layout_gravity="center"
                     />
-                <TextView
-                    android:id="@+id/comentarios"
-                    android:layout_gravity="center"
-                    android:text="1k  comentarios"
-                    android:gravity="end"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+
             </LinearLayout>
 
             <View
@@ -165,7 +185,7 @@
                     />
                 <LinearLayout
                     android:id="@+id/lnlike"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -191,39 +211,7 @@
                         />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="4"
-                    />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:orientation="horizontal"
-                    android:focusable="true">
 
-                    <ImageButton
-                        android:id="@+id/btncomment"
-                        android:clickable="false"
-                        android:layout_width="48dp"
-                        android:layout_height="40dp"
-                        android:tint="#8e8e8e"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_heart_red"
-
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Comentar"
-                        android:clickable="false"
-                        android:textColor="#A09E9E"
-                        />
-                </LinearLayout>
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"

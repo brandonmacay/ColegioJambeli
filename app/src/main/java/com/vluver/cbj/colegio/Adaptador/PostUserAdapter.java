@@ -217,7 +217,6 @@ public class PostUserAdapter extends RecyclerView.Adapter {
                 ((PostsViewHolder) holder).contentTextView.setText(getpostsimet.getDescription());
                 ((PostsViewHolder) holder).contentTextView.setVisibility(View.VISIBLE);
             } else {
-                ((PostsViewHolder) holder).viewmore.setVisibility(View.GONE);
                 ((PostsViewHolder) holder).contentTextView.setVisibility(View.GONE);
             }
 
@@ -278,14 +277,11 @@ public class PostUserAdapter extends RecyclerView.Adapter {
         TextView contentTextView;
         TextView dateTextView;
         TextView num_likes;
-        TextView num_comments;
         TextView txtlike;
         ImageButton opciones;
         ImageButton like;
-        ImageButton comentar;
         ImageView circle;
         LinearLayout lnlike;
-        Button viewmore;
         ImageView onlyimage;
         FrameLayout it2, it3, it4, it5;
         ImageView it2img1, it2img2, it3img1, it3img2, it3img3, it4img1, it4img2, it4img3, it4img4, it5img1, it5img2, it5img3, it5img4, it5img5;
@@ -295,16 +291,13 @@ public class PostUserAdapter extends RecyclerView.Adapter {
             super(v);
             nombres = (TextView) itemView.findViewById(R.id.nombres);
             like = (ImageButton) itemView.findViewById(R.id.btnLike);
-            comentar = (ImageButton) itemView.findViewById(R.id.btncomment);
-            contentTextView = (TextView) itemView.findViewById(R.id.textView8);
+             contentTextView = (TextView) itemView.findViewById(R.id.textView8);
             dateTextView = (TextView) itemView.findViewById(R.id.textView10);
-            num_comments = (TextView) itemView.findViewById(R.id.comentarios);
-            num_likes = (TextView) itemView.findViewById(R.id.likes);
+             num_likes = (TextView) itemView.findViewById(R.id.likes);
             opciones = (ImageButton) itemView.findViewById(R.id.options);
             lnlike = (LinearLayout) itemView.findViewById(R.id.lnlike);
             txtlike = (TextView) itemView.findViewById(R.id.txtlike);
-            viewmore = (Button) itemView.findViewById(R.id.view_moretxt);
-            onlyimage = (ImageView) itemView.findViewById(R.id.onlyimage);
+             onlyimage = (ImageView) itemView.findViewById(R.id.onlyimage);
             it2 = (FrameLayout) itemView.findViewById(R.id.item2);
             it3 = (FrameLayout) itemView.findViewById(R.id.item3);
             it4 = (FrameLayout) itemView.findViewById(R.id.item4);
@@ -324,13 +317,11 @@ public class PostUserAdapter extends RecyclerView.Adapter {
             it5img4 = (ImageView) itemView.findViewById(R.id.item5id4);
             it5img5 = (ImageView) itemView.findViewById(R.id.item5id5);
             txtcount = (TextView) itemView.findViewById(R.id.tvCount);
-            viewmore.setOnClickListener(this);
             opciones.setOnClickListener(this);
             //like.setOnClickListener(this);
             lnlike.setOnClickListener(this);
             circle = (ImageView) itemView.findViewById(R.id.user_profile);
             //draweeViewer = (WrapContentDraweeView) itemView.findViewById(R.id.my_image_view);
-            comentar.setOnClickListener(this);
             onlyimage.setOnClickListener(this);
             it2img1.setOnClickListener(this);
             it2img2.setOnClickListener(this);
@@ -419,17 +410,8 @@ public class PostUserAdapter extends RecyclerView.Adapter {
                         postslist.get(getAdapterPosition()).set_our_like(true);
                     }
                     break;
-                case R.id.btncomment:
-                    Bundle comentbundle = new Bundle();
-                    //comentbundle.putInt("id_post",items.get((getAdapterPosition())).getPost_id());
-                    comentbundle.putString("unique_id", uid);
-                    //Intent intent = new Intent(context,Comentar.class);
-                    //                    //intent.putExtras(comentbundle);
-                    //                    //context.startActivity(intent);
-                    break;
-                case R.id.view_moretxt:
-                    Toast.makeText(contexto, "" + postslist.get((getAdapterPosition())).getDescription(), Toast.LENGTH_SHORT).show();
-                    break;
+
+
                 case R.id.item2id1:
                     FullGestureImage.open(contexto, position, postslist.get(getPosition()).getPathimg(), postslist.get(getPosition()).getNameimg(), 0, "small_", 5);
                     break;
