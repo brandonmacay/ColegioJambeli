@@ -17,7 +17,7 @@ public class Posts {
     private int num_imgs;
     private ArrayList<String> pathimg;
     private ArrayList<String> nameimg;
-
+    private String tipo;
 
     //public Posts(){}
     /*public Posts(String user,String image,String description,Date date,String avatar){
@@ -27,6 +27,14 @@ public class Posts {
         this.date = date;
         this.avatar = avatar;
     }*/
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public ArrayList<String> getPathimg() {
         return pathimg;

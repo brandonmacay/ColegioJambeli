@@ -4,12 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.vluver.cbj.colegio.Adaptador.SearchDocenteAdapter;
 import com.vluver.cbj.colegio.Adaptador.SearchUserAdapter;
 import com.vluver.cbj.colegio.model.SearchUser;
 
@@ -28,25 +26,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchPerson extends AppCompatActivity implements  MaterialSearchBar.OnSearchActionListener {
+public class SearchDocente extends AppCompatActivity implements  MaterialSearchBar.OnSearchActionListener{
     MaterialSearchBar searchBar;
     public RecyclerView mRVFish;
-    public SearchUserAdapter mAdapter;
-    List<SearchUser> data;
-    //ProgressDialog finding;
+    public SearchDocenteAdapter mAdapter;
+    List<com.vluver.cbj.colegio.model.SearchDocente> data;
+    DatabaseHandler databaseHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_person);
+        setContentView(R.layout.activity_search_docente);
+        databaseHandler = new DatabaseHandler(SearchDocente.this);
+        databaseHandler.borrarHorarioTemporalDocente();
         searchBar = findViewById(R.id.searchBarMain);
         searchBar.setOnSearchActionListener(this);
         searchBar.enableSearch();
-        searchBar.setHint("Buscar usuarios");
+        searchBar.setHint("Buscar docentes");
         data=new ArrayList<>();
         mRVFish = (RecyclerView) findViewById(R.id.rv_resultados);
-        mAdapter = new SearchUserAdapter(SearchPerson.this, data);
+        mAdapter = new SearchDocenteAdapter(SearchDocente.this, data);
         mRVFish.setAdapter(mAdapter);
-        mRVFish.setLayoutManager(new LinearLayoutManager(SearchPerson.this));
+        mRVFish.setLayoutManager(new LinearLayoutManager(SearchDocente.this));
         //finding = new ProgressDialog(SearchPerson.this);
         searchBar.addTextChangeListener(new TextWatcher() {
             @Override
@@ -72,7 +72,6 @@ public class SearchPerson extends AppCompatActivity implements  MaterialSearchBa
 
         });
     }
-
     @Override
     public void onSearchStateChanged(boolean enabled) {
         if (!enabled){
@@ -95,9 +94,9 @@ public class SearchPerson extends AppCompatActivity implements  MaterialSearchBa
         //finding.setMessage("Buscando...");
         //finding.setCancelable(false);
         //finding.show();
-        String url = "http://mrsearch.000webhostapp.com/apirestAndroid/searchPerson.php?searchQuery="+text+"&usuario="+ Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        String url = "http://mrsearch.000webhostapp.com/apirestAndroid/searchDocente.php?searchQuery="+text+"&usuario="+ Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         VolleySingleton.
-                getInstance(SearchPerson.this).
+                getInstance(SearchDocente.this).
                 addToRequestQueue(
                         new JsonObjectRequest(
                                 Request.Method.GET, url, (JSONObject) null,
@@ -111,7 +110,7 @@ public class SearchPerson extends AppCompatActivity implements  MaterialSearchBa
                                 new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                       // finding.dismiss();
+                                        // finding.dismiss();
                                         if (data != null){
                                             data.clear();
                                             mAdapter.clear();
@@ -143,28 +142,19 @@ public class SearchPerson extends AppCompatActivity implements  MaterialSearchBa
                     JSONArray objPid = postt.getJSONArray("fullnames");
                     String fullnames = objPid.getString(i);
 
-                    JSONArray objtipo = postt.getJSONArray("tipo");
-                    String tipo = objtipo.getString(i);
+                    JSONArray objcedula = postt.getJSONArray("cedula");
+                    String ecdula = objcedula.getString(i);
 
-                    JSONArray objarea= postt.getJSONArray("userArea");
-                    String area = objarea.getString(i);
-
-                    JSONArray objuid= postt.getJSONArray("uid");
-                    String uid = objuid.getString(i);
-
-                    SearchUser userData = new SearchUser();
-
+                    com.vluver.cbj.colegio.model.SearchDocente userData = new com.vluver.cbj.colegio.model.SearchDocente();
+                    userData.setUserCedula(ecdula);
                     userData.setUserName(fullnames);
-                    userData.setUserTipo(tipo);
-                    userData.setUserArea(area);
-                    userData.setUserUID(uid);
                     data.add(userData);
                 }
 
                 mAdapter.notifyDataSetChanged();
                 //finding.dismiss();
                 mRVFish.setAdapter(mAdapter);
-                mRVFish.setLayoutManager(new LinearLayoutManager(SearchPerson.this));
+                mRVFish.setLayoutManager(new LinearLayoutManager(SearchDocente.this));
 
 
             } else {

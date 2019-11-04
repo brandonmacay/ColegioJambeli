@@ -34,6 +34,7 @@ public class HorarioFragment extends Fragment implements View.OnClickListener{
     DatabaseHandler databaseHandler;
     private int dayOfWeek;
     DataUser dataUser;
+    TextView horariode;
     public HorarioFragment() {
         // Required empty public constructor
     }
@@ -44,6 +45,7 @@ public class HorarioFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_horario, container, false);
+        horariode = view.findViewById(R.id.horariode);
         lu = view.findViewById(R.id.btnlunes);
         ma = view.findViewById(R.id.btnmartes);
         mi = view.findViewById(R.id.btnmiercoles);
@@ -51,6 +53,11 @@ public class HorarioFragment extends Fragment implements View.OnClickListener{
         vi = view.findViewById(R.id.btnviernes);
         setDay = view.findViewById(R.id.daytxt);
         dataUser = new DataUser(getContext());
+        if (dataUser.getTipodeusuario().equals("1")){
+            horariode.setText("Horario de: " + dataUser.getCurso());
+        }else{
+            horariode.setText("Horario de: " + dataUser.getNombres());
+        }
         recyclerView = view.findViewById(R.id.rvHorario);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());

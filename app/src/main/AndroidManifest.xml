@@ -20,9 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".PostActivity"
-            ></activity>
+        <activity android:name=".PerfilDocente"></activity>
+        <activity android:name=".SearchDocente" />
+        <activity android:name=".PerfilPersona" />
+        <activity android:name=".PostActivity" />
         <activity android:name=".SearchPerson" />
+
         <service
             android:name=".servicebackground.UploadImagesPost"
             android:exported="false" />
@@ -37,9 +40,7 @@
         <activity
             android:name=".FullGestureImage"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/FullscreenTheme"
-
-            />
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".SearchInEducarPlus"
             android:theme="@style/AppThemeMain" />

@@ -31,6 +31,7 @@ public class SearchInEducarPlus extends AppCompatActivity implements  MaterialSe
         searchBar = findViewById(R.id.searchBarMain);
         searchBar.setOnSearchActionListener(this);
         searchBar.enableSearch();
+        searchBar.setHint("Buscar en EducarPlus.com");
 
         miVisorWeb = (WebView) findViewById(R.id.visorWeb);
 

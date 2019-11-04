@@ -174,7 +174,8 @@ public class NoticiasFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                                                             JSONArray objuserimage = postt.getJSONArray("avatar");
                                                             String userimage = objuserimage.getString(i);
-
+                                                            JSONArray objtipo = postt.getJSONArray("tipo");
+                                                            String tipo = objtipo.getString(i);
                                                             JSONArray objcontent = postt.getJSONArray("content");
                                                             final String content = objcontent.getString(i);
 
@@ -217,6 +218,7 @@ public class NoticiasFragment extends Fragment implements SwipeRefreshLayout.OnR
                                                             posts.setNameimg(nameimg);
                                                             posts.setDescription(content);
                                                             posts.setDate(date);
+                                                            posts.setTipo(tipo);
                                                             posts.set_our_like(mylike);
                                                             posts.setNum_imgs(ttimg);
                                                             posts.set_num_likes(n_likes);
@@ -371,6 +373,9 @@ public class NoticiasFragment extends Fragment implements SwipeRefreshLayout.OnR
                                                     JSONArray objcontent = postt.getJSONArray("content");
                                                     final String content = objcontent.getString(i);
 
+                                                    JSONArray objtipo = postt.getJSONArray("tipo");
+                                                    String tipo = objtipo.getString(i);
+
                                                     JSONArray totalimg = postt.getJSONArray("totalimg");
                                                     int ttimg = totalimg.getInt(i);
                                                     JSONArray pathimgJSON = postt.getJSONArray("pathimg");
@@ -405,6 +410,7 @@ public class NoticiasFragment extends Fragment implements SwipeRefreshLayout.OnR
                                                     posts.setAvatar(userimage);
                                                     posts.setPathimg(pathimg);
                                                     posts.setNameimg(nameimg);
+                                                    posts.setTipo(tipo);
                                                     posts.setDescription(content);
                                                     posts.setDate(date);
                                                     posts.set_our_like(mylike);
@@ -486,6 +492,9 @@ public class NoticiasFragment extends Fragment implements SwipeRefreshLayout.OnR
                                                     JSONArray objuserimage = postt.getJSONArray("avatar");
                                                     String userimage = objuserimage.getString(i);
 
+                                                    JSONArray objtipo = postt.getJSONArray("tipo");
+                                                    String tipo = objtipo.getString(i);
+
                                                     JSONArray objcontent = postt.getJSONArray("content");
                                                     final String content = objcontent.getString(i);
 
@@ -529,6 +538,7 @@ public class NoticiasFragment extends Fragment implements SwipeRefreshLayout.OnR
                                                     posts.setDescription(content);
                                                     posts.setDate(date);
                                                     posts.set_our_like(mylike);
+                                                    posts.setTipo(tipo);
                                                     posts.setNum_imgs(ttimg);
                                                     posts.set_num_likes(n_likes);
                                                     GetDataAdapter1.add(posts);

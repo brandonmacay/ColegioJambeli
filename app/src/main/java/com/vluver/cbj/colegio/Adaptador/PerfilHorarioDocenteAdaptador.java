@@ -1,4 +1,4 @@
-package com.vluver.cbj.colegio.Docente.Adaptador;
+package com.vluver.cbj.colegio.Adaptador;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,15 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vluver.cbj.colegio.Docente.Modelo.HorarioDocenteModel;
-import com.vluver.cbj.colegio.Estudiante.Adaptador.HorarioEstudianteAdaptador;
-import com.vluver.cbj.colegio.Estudiante.Modelo.HorarioEstudianteModel;
 import com.vluver.cbj.colegio.R;
+import com.vluver.cbj.colegio.model.ScheduleModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,14 +22,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class HorarioDocenteAdaptador extends RecyclerView.Adapter {
-    private List<HorarioDocenteModel> items;
+public class PerfilHorarioDocenteAdaptador extends RecyclerView.Adapter {
+    private List<ScheduleModel> items;
     private Context context;
     private int mPreviousPosition;
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
     String diadelasemana;
-    public HorarioDocenteAdaptador(List<HorarioDocenteModel> items, Context context, String diadelasemana) {
+    public PerfilHorarioDocenteAdaptador(List<ScheduleModel> items, Context context, String diadelasemana) {
         this.context = context;
         this.items = items;
         this.diadelasemana=diadelasemana;
@@ -51,7 +49,7 @@ public class HorarioDocenteAdaptador extends RecyclerView.Adapter {
         items.clear();
         notifyDataSetChanged();
     }
-    public void update(List<HorarioDocenteModel> models) {
+    public void update(List<ScheduleModel> models) {
         items.clear();
         items.addAll(models);
         notifyDataSetChanged();
@@ -84,15 +82,15 @@ public class HorarioDocenteAdaptador extends RecyclerView.Adapter {
     @SuppressLint({"Range", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final HorarioDocenteModel estudianteModel = items.get(position);
+        final ScheduleModel estudianteModel = items.get(position);
         ((HorarioHolder) holder).materia.setText(estudianteModel.getCurso());
-        ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHoraInicial()+" - "+estudianteModel.getHoraFinal());
+        ((HorarioHolder) holder).tiempo.setText(estudianteModel.getHora_ini()+" - "+estudianteModel.getHora_fin());
         boolean correct = diadelasemana.equals(estudianteModel.getDia());
         if (correct) {
             try {
                 String th = sdf.format(cal.getTime());
-                String hi = estudianteModel.getHoraInicial();
-                String hf = estudianteModel.getHoraFinal();
+                String hi = estudianteModel.getHora_ini();
+                String hf = estudianteModel.getHora_fin();
                 Date tiempoHoy = sdf.parse(th);
                 Date horaini =  sdf.parse(hi);
                 Date horafinal = sdf.parse(hf);

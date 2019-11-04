@@ -200,7 +200,7 @@ public class PostUserAdapter extends RecyclerView.Adapter {
                 ((PostsViewHolder) holder).draweeViewer.setVisibility(View.GONE);
             }*/
             ((PostsViewHolder) holder).dateTextView.setText(getpostsimet.getDate());
-
+            ((PostsViewHolder) holder).txtTipo.setText("  -  "+getpostsimet.getTipo());
             String descripcion = getpostsimet.getDescription();
             if (descripcion != null) {
                /* descripcion.replace("  ", "\t");
@@ -273,6 +273,7 @@ public class PostUserAdapter extends RecyclerView.Adapter {
 
     public static class PostsViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
         String uid;
+        TextView txtTipo;
         TextView nombres;
         TextView contentTextView;
         TextView dateTextView;
@@ -298,6 +299,7 @@ public class PostUserAdapter extends RecyclerView.Adapter {
             lnlike = (LinearLayout) itemView.findViewById(R.id.lnlike);
             txtlike = (TextView) itemView.findViewById(R.id.txtlike);
              onlyimage = (ImageView) itemView.findViewById(R.id.onlyimage);
+             txtTipo = (TextView) itemView.findViewById(R.id.tipoU);
             it2 = (FrameLayout) itemView.findViewById(R.id.item2);
             it3 = (FrameLayout) itemView.findViewById(R.id.item3);
             it4 = (FrameLayout) itemView.findViewById(R.id.item4);

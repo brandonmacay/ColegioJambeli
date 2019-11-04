@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
                 case R.id.navigation_inicio:
                     titulo.setVisibility(View.GONE);
                     searchBar.setVisibility(View.VISIBLE);
-                    searchBar.setPlaceHolder("Buscar personas...");
+                    searchBar.setPlaceHolder("Buscar usuarios...");
                     mBottomNavigationViewPager.setCurrentItem(0, true);
                     frag = mBottomMenuItemAdapter.getCurrentFragment();
                     fragmentHistory.push(numero);
@@ -64,19 +64,20 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
                     return true;
                 case R.id.navigation_dashboard:
                     numero = 2;
-                    titulo.setVisibility(View.VISIBLE);
-                    if (dataUser.getTipodeusuario().equals("1")){
+                    /*if (dataUser.getTipodeusuario().equals("1")){
                         titulo.setText("Horario de " + dataUser.getCurso());
                     }else{
                         titulo.setText("Horario de " + dataUser.getNombres());
-                    }
-                    searchBar.setVisibility(View.GONE);
+                    }*/
+                    titulo.setVisibility(View.GONE);
+                    searchBar.setVisibility(View.VISIBLE);
+                    searchBar.setPlaceHolder("Buscar Docentes");
                     mBottomNavigationViewPager.setCurrentItem(2, true);
                     frag = mBottomMenuItemAdapter.getCurrentFragment();
                     fragmentHistory.push(numero);
                     s = numero;
                     return true;
-                case R.id.navigation_notifications:
+                /*case R.id.navigation_notifications:
                     titulo.setVisibility(View.VISIBLE);
                     titulo.setText("Novedades");
                     searchBar.setVisibility(View.GONE);
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
                     frag = mBottomMenuItemAdapter.getCurrentFragment();
                     fragmentHistory.push(numero);
                     s = numero;
-                    return true;
+                    return true;*/
             }
             return true;
         }
@@ -114,11 +115,15 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
                     Intent intent = new Intent(MainActivity.this, SearchInEducarPlus.class);
                     startActivity(intent);
                     overridePendingTransition(0,0);
+                }else if (s == 2){
+                    Intent intent = new Intent(MainActivity.this, SearchDocente.class);
+                    startActivity(intent);
+                    overridePendingTransition(0,0);
                 }
 
             }
         });
-        searchBar.setPlaceHolder("Buscar personas...");
+        searchBar.setPlaceHolder("Buscar usuarios...");
         searchBar.inflateMenu(R.menu.menu_estudiante);
         searchBar.getMenu().setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -138,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
         mBottomNavigationViewPager.setPagingEnable(false);
         frag = mBottomMenuItemAdapter.getCurrentFragment();
         fragmentHistory.push(0);
-        mBottomNavigationViewPager.setOffscreenPageLimit(4);
+        mBottomNavigationViewPager.setOffscreenPageLimit(3);
     }
     @Override
     public void onSearchStateChanged(boolean enabled) {
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
                     navView.setSelectedItemId(R.id.navigation_dashboard);
                     break;
                 case 3:
-                    navView.setSelectedItemId(R.id.navigation_notifications);
+                    //navView.setSelectedItemId(R.id.navigation_notifications);
                     break;
                 default:
                     navView.setSelectedItemId(R.id.navigation_inicio);
@@ -194,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
     }
 
     public void logout(){
+        db.borrarHorarioTemporalDocente();
         db.borrarHorarioEstudiante(MainActivity.this);
         db.borrarHorarioDocente(MainActivity.this);
         FirebaseAuth.getInstance().signOut();

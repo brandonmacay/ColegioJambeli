@@ -159,7 +159,7 @@ public class HorarioEstudianteAdaptador extends RecyclerView.Adapter {
                 }
 
             } catch (Exception e) {
-                Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 

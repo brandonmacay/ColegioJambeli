@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.vluver.cbj.colegio.Docente.Modelo.HorarioDocenteModel;
 import com.vluver.cbj.colegio.Estudiante.Modelo.DocentesPorCursoModel;
 import com.vluver.cbj.colegio.Estudiante.Modelo.HorarioEstudianteModel;
+import com.vluver.cbj.colegio.model.HorarioTemporalDocenteModel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +47,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_HORA_FIN_DOCENTE = "hora_final";
     public static final String COLUMN_MATERIA_DOCENTE = "materia";
 
+    //Tabla temporal para los horarios del docente
+    public static final String TTABLE_NAME_DOCENTE = "t_horario_docente";
 
+    public static final String TCOLUMN_ID_DOCENTE = "_id";
+
+    public static final String TCOLUMN_CURSOS = "cursos";
+    public static final String TCOLUMN_DIA_DOCENTE = "dia";
+    public static final String TCOLUMN_HORA_INI_DOCENTE = "hora_inicial";
+    public static final String TCOLUMN_HORA_FIN_DOCENTE = "hora_final";
+    public static final String TCOLUMN_MATERIA_DOCENTE = "materia";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
@@ -61,6 +71,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 COLUMN_HORA_INI_DOCENTE + " TEXT  NOT NULL, " +
                 COLUMN_HORA_FIN_DOCENTE + " TEXT  NOT NULL, " +
                 COLUMN_MATERIA_DOCENTE + " TEXT NOT NULL); "
+        );
+
+        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TTABLE_NAME_DOCENTE + " (" +
+                TCOLUMN_ID_DOCENTE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                TCOLUMN_CURSOS + " TEXT  NOT NULL, " +
+                TCOLUMN_DIA_DOCENTE + " TEXT  NOT NULL, " +
+                TCOLUMN_HORA_INI_DOCENTE + " TEXT  NOT NULL, " +
+                TCOLUMN_HORA_FIN_DOCENTE + " TEXT  NOT NULL, " +
+                TCOLUMN_MATERIA_DOCENTE + " TEXT NOT NULL); "
         );
 
         db.execSQL(" CREATE TABLE IF NOT EXISTS " + TABLE_NAME_ESTUDIANTE + " (" +
@@ -103,6 +122,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_NAME_DOCENTE);
         Toast.makeText(context,"Sesion cerrada!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void borrarHorarioTemporalDocente() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+TTABLE_NAME_DOCENTE);
     }
 
 
@@ -150,6 +174,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void insertar_horario_temporal_docente( String cursos, String dia,String hora_ini,String horafin,String materia) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TCOLUMN_CURSOS, cursos);
+        values.put(TCOLUMN_DIA_DOCENTE, dia);
+        values.put(TCOLUMN_HORA_INI_DOCENTE,hora_ini);
+        values.put(TCOLUMN_HORA_FIN_DOCENTE, horafin);
+        values.put(TCOLUMN_MATERIA_DOCENTE, materia);
+        // insert
+        db.insert(TTABLE_NAME_DOCENTE,null, values);
+        db.close();
+    }
+
     public List<HorarioEstudianteModel> getHorarioEstudiantePorDia(String dia_) {
         String query ;
         query = "SELECT  * FROM " + TABLE_NAME_ESTUDIANTE + " WHERE dia='"+dia_+"'";
@@ -194,7 +233,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return listadoHorario;
     }
+    public List<HorarioTemporalDocenteModel> getHorarioTemporalDocentePorDia(String dia_) {
+        String query ;
+        query = "SELECT  * FROM " + TTABLE_NAME_DOCENTE + " WHERE dia='"+dia_+"'";
+        List<HorarioTemporalDocenteModel> listadoHorario = new LinkedList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        HorarioTemporalDocenteModel horarioEstudianteModel;
+        if (cursor.moveToFirst()) {
+            do {
+                horarioEstudianteModel = new HorarioTemporalDocenteModel();
+                horarioEstudianteModel.setCurso(cursor.getString(cursor.getColumnIndex(TCOLUMN_CURSOS)));
+                horarioEstudianteModel.setDia(cursor.getString(cursor.getColumnIndex(TCOLUMN_DIA_DOCENTE)));
+                horarioEstudianteModel.setHoraInicial(cursor.getString(cursor.getColumnIndex(TCOLUMN_HORA_INI_DOCENTE)));
+                horarioEstudianteModel.setHoraFinal(cursor.getString(cursor.getColumnIndex(TCOLUMN_HORA_FIN_DOCENTE)));
+                horarioEstudianteModel.setMateria(cursor.getString(cursor.getColumnIndex(TCOLUMN_MATERIA_DOCENTE)));
+                listadoHorario.add(horarioEstudianteModel);
+            } while (cursor.moveToNext());
 
+            db.close();
+            cursor.close();
+        }
+        return listadoHorario;
+    }
     public List<HorarioDocenteModel> getHorarioDocentePorDia(String dia_) {
         String query ;
         query = "SELECT  * FROM " + TABLE_NAME_DOCENTE + " WHERE dia='"+dia_+"'";

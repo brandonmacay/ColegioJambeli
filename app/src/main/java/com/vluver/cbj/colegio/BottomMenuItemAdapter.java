@@ -27,7 +27,7 @@ public class BottomMenuItemAdapter extends FragmentPagerAdapter {
         fragments.add(new NoticiasFragment());
         fragments.add(new EducarPlusFragment());
         fragments.add(new HorarioFragment());
-        fragments.add(new NotificacionesFragment());
+        //fragments.add(new NotificacionesFragment());
 
     }
 
